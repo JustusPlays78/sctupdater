@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "/Wjg1+1LB4Z/8s9tSPW+Wp7bBP7rT7P4LUSr4gQyF3xLQ5PoTUuBFbiJdOjosE1E/vqgB52Fjal6/n/hrW1RQA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Julian\\source\\repos\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Julian\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
