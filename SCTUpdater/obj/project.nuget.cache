@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/Wjg1+1LB4Z/8s9tSPW+Wp7bBP7rT7P4LUSr4gQyF3xLQ5PoTUuBFbiJdOjosE1E/vqgB52Fjal6/n/hrW1RQA==",
+  "dgSpecHash": "7nimhgeX3Ku/h+HgYx1Z4C3Ly/STUwY1NPxke4lbsHsQ52ppDPSSCuxoyghG1UFjlDT14jOTdObHpjZYsZCrhw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Julian\\source\\repos\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj",
+  "projectFilePath": "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\SCTUpdater.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Julian\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],

@@ -1,39 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
+using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
 
 namespace SCTUpdater
-
 {
-    internal class Jsonfile
+    public class creds
     {
-        
-
-        public static void savecreds(string nametext, string passwordtext, string cpdlctext)
-        {
-            string path = @"C:\Users\Julian\Desktop\sctshit\creds.json";
-
-                creds cred = new creds { cidname = nametext, password = passwordtext, cpdlc = cpdlctext };
-                string JSONresult = JsonConvert.SerializeObject(cred); 
-                File.WriteAllText(path,JSONresult);
-                /*using (var js = new StreamWriter(path, true))
-                {
-                    js.WriteLine(JSONresult);
-                    js.Close();
-                }*/
-
-        }
-
-    }
-
-    internal class creds
-    {
-        public string cidname;
+        public string name;
         public string password;
         public string cpdlc;
+        public string cid;
+    }
+
+    internal class Jsonfile
+    {
+        public static string path = @"C:\Users\Julian\Desktop\sctshit\creds.json";
+
+        public static void savecreds(
+            string nametext,
+            string passwordtext,
+            string cpdlctext,
+            string cidtext
+        )
+        {
+            creds cred = new creds
+            {
+                name = nametext,
+                password = passwordtext,
+                cpdlc = cpdlctext,
+                cid = cidtext
+            };
+            string JSONresult = JsonConvert.SerializeObject(cred);
+            File.WriteAllText(path, JSONresult);
+        }
+
+        public static creds getjson()
+        {
+            string text = File.ReadAllText(path);
+            creds creds = JsonConvert.DeserializeObject<creds>(text);
+            return creds;
+        }
     }
 }
