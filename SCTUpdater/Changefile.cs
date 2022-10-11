@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Reflection;
 
 namespace SCTUpdater
 {
@@ -14,15 +15,22 @@ namespace SCTUpdater
 
         public static void startbutton()
         {
-            prfedit();
+            
+            prfedit(profiles.phoenix);
+            /*prfedit(profiles.edggpro);
+            prfedit(profiles.eduupro);
+            prfedit(profiles.alternate);
+            prfedit(profiles.apron);
+            prfedit(profiles.alternateGrp);*/
+
         }
 
-        private static void prfedit()
+        private static void prfedit(string profile)
         {
             string credentialslogin = credentialscreatetext();
             string newfile;
 
-            StreamReader reader = new StreamReader(SCTPath.pathdialog + @"/Tower Phoenix.prf"
+            StreamReader reader = new StreamReader(SCTPath.pathdialog + profile
             );
             string filecontent = reader.ReadToEnd();
             reader.Close();

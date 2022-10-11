@@ -18,7 +18,7 @@
         <TextBox HorizontalAlignment="Left" Margin="570,100,0,0" VerticalAlignment="Top" Text="Password" Width="120" x:Name="password"/>
         <TextBox HorizontalAlignment="Left" Margin="570,120,0,0" TextWrapping="Wrap" Text="cpdlc" VerticalAlignment="Top" Width="120" x:Name="cpdlc"/>
         <TextBox HorizontalAlignment="Left" Margin="570,140,0,0" TextWrapping="Wrap" Text="extras" VerticalAlignment="Top" Width="120" x:Name="extras"/>
-        <Button x:Name="savecreds" Content="save" HorizontalAlignment="Left" Margin="570,152,0,0" VerticalAlignment="Top" Click="savecreds_Click"/>
+        <Button x:Name="savecreds" Content="save" HorizontalAlignment="Left" Margin="570,170,0,0" Width="120" VerticalAlignment="Top" Click="savecreds_Click"/>
         <Button Content="Folder" HorizontalAlignment="Left" Margin="60,217,0,0" VerticalAlignment="Top" Width="262" Click="Folderbutton" x:Name="pathbutton"/>
         <TextBox HorizontalAlignment="Left" Margin="570,80,0,0" TextWrapping="Wrap" Text="CID" VerticalAlignment="Top" Width="120" x:Name="cid"/>
 

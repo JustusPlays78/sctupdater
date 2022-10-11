@@ -42,6 +42,7 @@ namespace SCTUpdater
             {
                 SCTPath.pathdialog = fileddialog.SelectedPath;
                 pathbutton.Content = SCTPath.pathdialog;
+
             }
         }
 
@@ -51,7 +52,7 @@ namespace SCTUpdater
 
             if (!isConfigLoaded)
             {
-                MessageBox.Show("Keine Config erstellt");
+                System.Windows.Forms.MessageBox.Show("Keine Config erstellt");
             }
 
             else
