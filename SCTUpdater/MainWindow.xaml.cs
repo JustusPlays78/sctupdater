@@ -16,15 +16,12 @@ using System.Windows.Forms;
 
 namespace SCTUpdater
 {
-    public class SCTPath
-    {
-        public static string pathdialog;
-    }
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
-
+            
             InitializeComponent();
         }
 
@@ -45,6 +42,21 @@ namespace SCTUpdater
             {
                 SCTPath.pathdialog = fileddialog.SelectedPath;
                 pathbutton.Content = SCTPath.pathdialog;
+            }
+        }
+
+        private void MainWindow_OnContentRendered(object? sender, EventArgs e)
+        {
+            bool isConfigLoaded = configjson.startcheck();
+
+            if (!isConfigLoaded)
+            {
+                MessageBox.Show("Keine Config erstellt");
+            }
+
+            else
+            {
+                pathbutton.Content = "";
             }
         }
     }

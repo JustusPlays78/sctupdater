@@ -7,6 +7,7 @@ using System.IO;
 
 namespace SCTUpdater
 {
+
     internal class Changefile
     {
         private static String path;
@@ -21,8 +22,7 @@ namespace SCTUpdater
             string credentialslogin = credentialscreatetext();
             string newfile;
 
-            StreamReader reader = new StreamReader(
-                @"C:\Users\Julian\Desktop\sctshit\Tower Phoenix.prf"
+            StreamReader reader = new StreamReader(SCTPath.pathdialog + @"/Tower Phoenix.prf"
             );
             string filecontent = reader.ReadToEnd();
             reader.Close();

@@ -11,13 +11,6 @@ using Newtonsoft.Json;
 
 namespace SCTUpdater
 {
-    public class creds
-    {
-        public string name;
-        public string password;
-        public string cpdlc;
-        public string cid;
-    }
 
     internal class Jsonfile
     {
