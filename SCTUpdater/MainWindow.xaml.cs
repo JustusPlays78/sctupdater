@@ -22,7 +22,7 @@ namespace SCTUpdater
     {
         public MainWindow()
         {
-            
+            configjson.startcheck();
             InitializeComponent();
         }
 
@@ -43,7 +43,7 @@ namespace SCTUpdater
             {
                 SCTPath.pathdialog = fileddialog.SelectedPath;
                 pathbutton.Content = SCTPath.pathdialog;
-
+                configjson.savepath(SCTPath.pathdialog);
             }
         }
 

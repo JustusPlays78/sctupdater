@@ -4,13 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
 
 namespace SCTUpdater
 {
     public class SCTPath
     {
-        public static string pathdialog;
+        public string pathedgg { get; set; }
+        public string pathedww { get; set; }
+        public string pathedmm { get; set; }
+        public string pathconfig { get; set; }
     }
     public class profiles
     {
@@ -45,6 +49,7 @@ namespace SCTUpdater
     {
         public static bool startcheck()
         {
+            getpaths();
             //configjson vorhanden
             //path für edgg ordner
             if (File.Exists(@"config.json"))
@@ -56,6 +61,7 @@ namespace SCTUpdater
                 configjsoncheck();
                 return true;
             }
+            
         }
 
         private static void configjsoncheck()
@@ -74,23 +80,35 @@ namespace SCTUpdater
             //File.WriteAllText(@"config.json", JSONresult);
             }
 
-        public void savepath(string paths)
+        public static void savepath(string paths)
         {
             StreamReader reader = new StreamReader(SCTPath.pathdialog + @"\config.json");
             string json = reader.ReadToEnd();
             reader.Close();
-            SCTPath pathdialog = JsonConvert.DeserializeObject<SCTPath>(json);
             string JSONresult = JsonConvert.SerializeObject(paths);
             File.WriteAllText(@"config.json", JSONresult);
         }
 
-        public static profiles getprofiles()
+        /*public static profiles getprofiles()
         {
-            StreamReader reader = new StreamReader(SCTPath.pathdialog +@"\config.json");
+            StreamReader reader = new StreamReader( +@"\config.json");
             string json = reader.ReadToEnd();
             reader.Close();
             profiles profile = JsonConvert.DeserializeObject<profiles>(json);
             return profile;
+        }*/
+
+        public static void getpaths()
+        {
+            StreamReader reader = new StreamReader(@"C:\Users\Julian\Desktop\sctshit\config.json");
+            string json = reader.ReadToEnd();
+            reader.Close();
+            List<SCTPath> pathouts = JsonConvert.DeserializeObject<List<SCTPath>>(json);
+
+            foreach(SCTPath pathout in pathouts)
+            {
+                MessageBox.Show(pathout.pathconfig);
+            }
         }
 
     }
