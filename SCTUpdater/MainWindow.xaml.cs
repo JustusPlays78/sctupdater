@@ -14,57 +14,42 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Security.Cryptography;
+using System.Xml.Linq;
 
 namespace SCTUpdater
 {
-
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
-            configjson.startcheck();
+
+            Config.StartupChecks();
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Changefile.startbutton();
-        }
 
-        private void savecreds_Click(object sender, RoutedEventArgs e)
-        {
-            Jsonfile.savecreds(name.Text, password.Text, cpdlc.Text, cid.Text);
-        }
-
-        private void Folderbutton(object sender, RoutedEventArgs e)
+        /*Opens the Folderdialog and sets the folderpath to the global value*/
+        private void folderButton(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog fileddialog = new FolderBrowserDialog();
             if (fileddialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                SCTPath.pathdialog = fileddialog.SelectedPath;
-                pathbutton.Content = SCTPath.pathdialog;
-                configjson.savepath(SCTPath.pathdialog);
+                //Paths.GeneralPath = fileddialog.SelectedPath;
+                //PathButton.Content = Paths.GeneralPath;
             }
         }
 
-        private void MainWindow_OnContentRendered(object? sender, EventArgs e)
-        {
-            bool isConfigLoaded = configjson.startcheck();
-
-            if (!isConfigLoaded)
-            {
-                System.Windows.Forms.MessageBox.Show("Keine Config erstellt");
-            }
-
-            else
-            {
-                pathbutton.Content = "";
-            }
-        }
-
-        private void Exitclose(object sender, RoutedEventArgs e)
+        //ExitButton, was soll ich sagen
+        private void ExitButton(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        /*Starts the Credentials Saving Process*/
+        private void SaveCredsButton(object sender, RoutedEventArgs e)
+        {
+            CredentialProcess.SaveCredentials(NameTextBox.Text, CidTextBox.Text, CidTextBox.Text, CpdlcTextBox.Text);
         }
     }
 }
