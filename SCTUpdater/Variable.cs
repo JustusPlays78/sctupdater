@@ -18,10 +18,10 @@ namespace SCTUpdater
 
     public class Credentials
     {
-        public static string Name;
-        public static string Cid;
-        public static string Password;
-        public static string Cpdlc;
+        public string Name { get; set; }
+        public string Cid { get; set; }
+        public string Password { get; set; }
+        public string Cpdlc { get; set; }
     }
     public class EDGGProfiles
     {
@@ -35,18 +35,18 @@ namespace SCTUpdater
 
     public class EDWWProfiles
     {
-        public static string EdwwAppCtr;
-        public static string EdbbAppCtr;
-        public static string EduuCtr;
-        public static string EdyyCtr;
-        public static string EdwwTwr;
-        public static string EdbbTwr;
+        public string EdwwAppCtr { get; set; }
+        public string EdbbAppCtr { get; set; }
+        public string EduuCtr { get; set; }
+        public string EdyyCtr { get; set; }
+        public string EdwwTwr { get; set; }
+        public string EdbbTwr { get; set; }
     }
 
     public class EDMMProfiles
     {
-        public static string Edmm;
-        public static string Eduu;
-        public static string TwrReal;
+        public string Edmm { get; set; }
+        public string Eduu { get; set; }
+        public string TwrReal { get; set; }
     }
 }

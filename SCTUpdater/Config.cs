@@ -17,7 +17,9 @@ namespace SCTUpdater
     {
 
         public static Paths DefaultPath = new Paths();
-        public static EDGGProfiles Defaultedgg = new EDGGProfiles();
+        public static EDGGProfiles DefaultEdgg = new EDGGProfiles();
+        public static EDWWProfiles DefaultEdww = new EDWWProfiles();
+        public static EDMMProfiles DefaultEdmm = new EDMMProfiles();
 
         /*Checks if...
          ...Config.json exists,
@@ -50,12 +52,16 @@ namespace SCTUpdater
         Thereafter sets the Objects*/
         private static void CreateConfigJson()
         {
-            String genpath = Directory.GetCurrentDirectory();
+            DefaultPath.ConfigPath = Directory.GetCurrentDirectory();
 
             SetDefaultConfigVariables();
 
+            string JsonResultpath = JsonConvert.SerializeObject(DefaultPath);
+            string JsonResultEdgg= JsonConvert.SerializeObject(DefaultEdgg);
+            string JsonResultEdww = JsonConvert.SerializeObject(DefaultEdww);
+            string JsonResultEdmm = JsonConvert.SerializeObject(DefaultEdmm);
 
-            string JsonResult = JsonConvert.SerializeObject(Defaultedgg);
+            string JsonResult = JsonResultpath + JsonResultEdgg + JsonResultEdww + JsonResultEdmm;
 
             File.WriteAllText(@"C:\Users\Julian\Desktop\sctshit\test_13_10\config.json", JsonResult);
             RemoveDefaultConfigVariablesValue();
@@ -65,24 +71,23 @@ namespace SCTUpdater
         private static void SetDefaultConfigVariables()
         {
 
+            DefaultEdgg.PheonixTwr = "Tower Phoenix.prf";
+            DefaultEdgg.Edgg = "EDGG Langen Radar.prf";
+            DefaultEdgg.Eduu = "EDUU Rhein Radar.prf";
+            DefaultEdgg.EddfApn = "EDDF Apron.prf";
+            DefaultEdgg.Alternate = "Alternate.prf";
+            DefaultEdgg.AlternateGrp = "Alternate GRP.prf";
 
-            Defaultedgg.PheonixTwr = "Tower Phoenix.prf";
-            Defaultedgg.Edgg = "EDGG Langen Radar.prf";
-            Defaultedgg.Eduu = "EDUU Rhein Radar.prf";
-            Defaultedgg.EddfApn = "EDDF Apron.prf";
-            Defaultedgg.Alternate = "Alternate.prf";
-            Defaultedgg.AlternateGrp = "Alternate GRP.prf";
+            DefaultEdww.EdbbAppCtr = "EDBB-CTR-APP.prf";
+            DefaultEdww.EdwwAppCtr = "EDWW-CTR-APP.prf";
+            DefaultEdww.EdbbTwr = "EDBB-TWR.prf";
+            DefaultEdww.EdwwTwr = "EDWW-TWR.prf";
+            DefaultEdww.EduuCtr = "EDUU-CTR.prf";
+            DefaultEdww.EdyyCtr = "EDYY-CTR.prf";
 
-            EDWWProfiles.EdbbAppCtr = "EDBB-CTR-APP.prf";
-            EDWWProfiles.EdwwAppCtr = "EDWW-CTR-APP.prf";
-            EDWWProfiles.EdbbTwr = "EDBB-TWR.prf";
-            EDWWProfiles.EdwwTwr = "EDWW-TWR.prf";
-            EDWWProfiles.EduuCtr = "EDUU-CTR.prf";
-            EDWWProfiles.EdyyCtr = "EDYY-CTR.prf";
-
-            EDMMProfiles.Edmm = "EDMM.prf";
-            EDMMProfiles.Eduu = "EDUU.prf";
-            EDMMProfiles.TwrReal = "TWR_REAL.prf";
+            DefaultEdmm.Edmm = "EDMM.prf";
+            DefaultEdmm.Eduu = "EDUU.prf";
+            DefaultEdmm.TwrReal = "TWR_REAL.prf";
         }
 
         private static void RemoveDefaultConfigVariablesValue()
