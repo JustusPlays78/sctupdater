@@ -35,8 +35,8 @@ namespace SCTUpdater
             FolderBrowserDialog fileddialog = new FolderBrowserDialog();
             if (fileddialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                PathButton.Content = fileddialog.SelectedPath;
                 //Paths.GeneralPath = fileddialog.SelectedPath;
-                //PathButton.Content = Paths.GeneralPath;
             }
         }
 

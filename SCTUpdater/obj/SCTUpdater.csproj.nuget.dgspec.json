@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Julian\\Desktop\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj": {}
+    "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\SCTUpdater.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Julian\\Desktop\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj": {
+    "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\SCTUpdater.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Julian\\Desktop\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj",
+        "projectUniqueName": "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\SCTUpdater.csproj",
         "projectName": "SCTUpdater",
-        "projectPath": "C:\\Users\\Julian\\Desktop\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj",
+        "projectPath": "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\SCTUpdater.csproj",
         "packagesPath": "C:\\Users\\Julian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Julian\\Desktop\\SCTUpdater\\SCTUpdater\\obj\\",
+        "outputPath": "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
