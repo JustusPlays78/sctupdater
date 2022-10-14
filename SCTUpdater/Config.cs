@@ -57,6 +57,7 @@ namespace SCTUpdater
         Thereafter sets the Objects*/
         private static void CreateConfigJson()
         {
+            DefaultPath.ConfigPath = Directory.GetCurrentDirectory() + "\\config.json";
 
             string JsonResultpath = JsonConvert.SerializeObject(DefaultPath);
             string JsonResultEdgg= JsonConvert.SerializeObject(DefaultEdgg);

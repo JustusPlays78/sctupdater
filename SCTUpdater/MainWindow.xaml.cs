@@ -29,8 +29,8 @@ namespace SCTUpdater
     {
         public MainWindow()
         {
-            Paths newPath = Config.ImportPaths();
             Config.StartupChecks();
+            Paths newPath = Config.ImportPaths();
             InitializeComponent();
             
             StringBuilder builder = DebugStartOption();
