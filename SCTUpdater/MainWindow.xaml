@@ -165,7 +165,9 @@
                                     FontSize="14"
                                     FontWeight="Medium"
                                     Margin="0,0,10,0"
-                                    Click="EdggButtonProcessStart">
+                                    Click="EdggButtonProcessStart_Click"
+                                    x:Name="EdggButtonProcessStart"
+                                    IsEnabled="false">
 
                                 <Button.Style>
                                     <Style TargetType="Button">
@@ -295,45 +297,11 @@
                     </TabItem>
                 </TabControl>
 
-                
+
             </StackPanel>
 
             <StackPanel Orientation="Horizontal"
-                        Margin="0,15,0,0">
-                
-
-                <Button Content="Cancel"
-                        Foreground="White"
-                        FontSize="14"
-                        FontWeight="Medium"
-                        Margin="0,0,10,0">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#39385D"></Setter>
-                            <Setter Property="Cursor" Value="Hand"></Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#3A3952"></Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="100" Height="25"
-                                    CornerRadius="12"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center">
-
-                                </ContentPresenter>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-            </StackPanel>
+                        Margin="0,15,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2">
@@ -411,5 +379,7 @@
                 </Button.Template>
             </Button>
         </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="33,260,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"
+                   Background="White" Height="131" Width="297" x:Name="DebugBox"/>
     </Grid>
 </Window>

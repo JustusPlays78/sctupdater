@@ -29,8 +29,32 @@ namespace SCTUpdater
     {
         public MainWindow()
         {
+            Paths newPath = Config.ImportPaths();
             Config.StartupChecks();
             InitializeComponent();
+            
+            StringBuilder builder = DebugStartOption();
+            DebugBox.Text = builder.ToString();
+            
+            PathButton.Content = newPath.SctPath;
+        }
+
+        public static StringBuilder DebugStartOption()
+        {
+            EDGGProfiles ProcessEdggProfiles = Config.ImportEdggProfiles();
+            EDWWProfiles ProcessEdwwProfiles = Config.ImportEdwwProfiles();
+            EDMMProfiles ProcessEdmmProfiles = Config.ImportEdmmProfiles();
+            StringBuilder builder = new StringBuilder();
+
+            builder.AppendLine(ProcessEdggProfiles.PheonixTwr);
+            builder.AppendLine(ProcessEdggProfiles.Edgg);
+            builder.AppendLine(ProcessEdggProfiles.Eduu);
+            builder.AppendLine(ProcessEdggProfiles.EddfApn);
+            builder.AppendLine(ProcessEdggProfiles.Alternate);
+            builder.AppendLine(ProcessEdggProfiles.AlternateGrp);
+
+
+            return builder;
         }
 
         /*Opens the Folderdialog and sets the folderpath to the global value*/
@@ -42,6 +66,7 @@ namespace SCTUpdater
                 PathButton.Content = fileddialog.SelectedPath;
                 Strings.IsSctPathSet = true;
                 Config.SetSctPath(fileddialog.SelectedPath);
+                EdggButtonProcessStart.IsEnabled = true;
             }
         }
 
@@ -80,13 +105,14 @@ namespace SCTUpdater
             this.DragMove();
         }
 
-        private void EdggButtonProcessStart(object sender, RoutedEventArgs e)
+        private void EdggButtonProcessStart_Click(object sender, RoutedEventArgs e)
         {
             bool? CopyCid = EdggNameCidCheckBox.IsChecked;
             bool? CopyPassword = EdggPasswordCheckBox.IsChecked;
             bool? CopyCpdlc = EdggPasswordCpdlc.IsChecked;
 
             StartProcess.Start(0, CopyCid, CopyPassword, CopyCpdlc);
+            MessageBox.Show("Done");
         }
 
         private void EdwwButtonProcessStart(object sender, RoutedEventArgs e)

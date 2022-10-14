@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
+using static SCTUpdater.Config;
 
 namespace SCTUpdater
 {
@@ -17,7 +19,7 @@ namespace SCTUpdater
         {
             if (CheckCredentialsJson())
             {
-                File.Delete(Directory.GetCurrentDirectory() + @"\credentials.json");
+                File.Delete(DefaultPath.CredentialsPath);
                 CreateCredentialsJson(name, cid, password, CDPLC);
             }
             else
@@ -29,7 +31,7 @@ namespace SCTUpdater
         /*Checks if the File exists*/
         private static bool CheckCredentialsJson()
         {
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\credentials.json"))
+            if (File.Exists(DefaultPath.CredentialsPath))
             {
                 return true;
             }
@@ -55,33 +57,27 @@ namespace SCTUpdater
 
             string Json = JsonConvert.SerializeObject(saveCredentials);
 
-            using (
-                StreamWriter streamWriter = new StreamWriter(
-                    Directory.GetCurrentDirectory() + @"\credentials.json"
-                )
-            )
+            using (StreamWriter streamWriter = new StreamWriter(DefaultPath.CredentialsPath))
             {
                 streamWriter.Write(Json);
                 streamWriter.Close();
             }
         }
 
-        public static bool ImportCredentialsJson()
+        public static Credentials? ImportCredentialsJson()
         {
-            StreamReader reader = new StreamReader(
-                Directory.GetCurrentDirectory() + @"\credentials.json"
-            );
+            StreamReader reader = new StreamReader(DefaultPath.CredentialsPath);
             string JsonOutput = reader.ReadToEnd();
             if (JsonConvert.DeserializeObject<Credentials>(JsonOutput) != null)
             {
                 Credentials? MainCredentials = JsonConvert.DeserializeObject<Credentials>(
                     JsonOutput
                 );
-                return true;
+                return MainCredentials;
             }
             else
             {
-                return false;
+                return null;
             }
         }
     }

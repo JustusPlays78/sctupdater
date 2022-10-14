@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using SCTUpdater;
@@ -36,7 +37,6 @@ namespace SCTUpdater
             {
                 CreateConfigJson();
             }
-            ImportConfigJson();
         }
 
         /*Cheks if Config.json exists*/
@@ -57,7 +57,6 @@ namespace SCTUpdater
         Thereafter sets the Objects*/
         private static void CreateConfigJson()
         {
-            DefaultPath.ConfigPath = Directory.GetCurrentDirectory();
 
             string JsonResultpath = JsonConvert.SerializeObject(DefaultPath);
             string JsonResultEdgg= JsonConvert.SerializeObject(DefaultEdgg);
@@ -77,56 +76,95 @@ namespace SCTUpdater
 
         }
 
-        /*Importiert die ConfigJson in die Main... Objekte, die dann nutzbar sind*/
-        public static void ImportConfigJson()
+
+        public static Paths ImportPaths()
         {
-            StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + @"\config.json");
+            StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\config.json");
             string JsonOutputPath = reader.ReadLine();
             string JsonOutputEdgg = reader.ReadLine();
             string JsonOutputEdww = reader.ReadLine();
             string JsonOutputEdmm = reader.ReadLine();
             reader.Close();
 
-            //string JsonOutput = System.IO.File.ReadAllText(Directory.GetCurrentDirectory() + @"\config.json");
-            //reader.Close();
 
-            Variable.Mainpath = JsonConvert.DeserializeObject<Paths>(JsonOutputPath);
-            Variable.MainEdggProfile = JsonConvert.DeserializeObject<EDGGProfiles>(JsonOutputEdgg);
-            Variable.MainEdwwProfile = JsonConvert.DeserializeObject<EDWWProfiles>(JsonOutputEdww);
-            Variable.MainEdmmProfile = JsonConvert.DeserializeObject<EDMMProfiles>(JsonOutputEdmm);
+            Paths Mainpath = JsonConvert.DeserializeObject<Paths>(JsonOutputPath);
 
-            //ConfigClass ?Config = JsonConvert.DeserializeObject<ConfigClass>(JsonOutput);
-
-
-            if (IsSctPathSet)
-            { 
-                
-                
-                //EDGG
-                Variable.MainEdggProfile.PheonixTwr = Variable.Mainpath.SctPath + Variable.MainEdggProfile.PheonixTwr;
-                Variable.MainEdggProfile.Edgg = Variable.Mainpath.SctPath + Variable.MainEdggProfile.Edgg;
-                Variable.MainEdggProfile.Eduu = Variable.Mainpath.SctPath + Variable.MainEdggProfile.Eduu;
-                Variable.MainEdggProfile.EddfApn = Variable.Mainpath.SctPath + Variable.MainEdggProfile.EddfApn;
-                Variable.MainEdggProfile.Alternate = Variable.Mainpath.SctPath + Variable.MainEdggProfile.Alternate;
-                Variable.MainEdggProfile.AlternateGrp = Variable.Mainpath.SctPath + Variable.MainEdggProfile.AlternateGrp;
-
-                //EDWW
-                Variable.MainEdwwProfile.EdbbAppCtr = Variable.Mainpath.SctPath + Variable.MainEdwwProfile.EdbbAppCtr;
-                Variable.MainEdwwProfile.EdwwAppCtr = Variable.Mainpath.SctPath + Variable.MainEdwwProfile.EdwwAppCtr;
-                Variable.MainEdwwProfile.EdbbTwr = Variable.Mainpath.SctPath + Variable.MainEdwwProfile.EdbbTwr;
-                Variable.MainEdwwProfile.EdwwTwr = Variable.Mainpath.SctPath + Variable.MainEdwwProfile.EdwwTwr;
-                Variable.MainEdwwProfile.EduuCtr = Variable.Mainpath.SctPath + Variable.MainEdwwProfile.EduuCtr;
-                Variable.MainEdwwProfile.EdyyCtr = Variable.Mainpath.SctPath + Variable.MainEdwwProfile.EdyyCtr;
-
-                //EDMM
-                Variable.MainEdmmProfile.Edmm = Variable.Mainpath.SctPath + Variable.MainEdmmProfile.Edmm;
-                Variable.MainEdmmProfile.Eduu = Variable.Mainpath.SctPath + Variable.MainEdmmProfile.Eduu;
-                Variable.MainEdmmProfile.TwrReal = Variable.Mainpath.SctPath + Variable.MainEdmmProfile.TwrReal;
-
-
-            }
+            return Mainpath;
         }
 
+        public static EDGGProfiles ImportEdggProfiles()
+        {
+            Paths newPath = ImportPaths();
+            StreamReader reader = new StreamReader(DefaultPath.ConfigPath);
+            string JsonOutputPath = reader.ReadLine();
+            string JsonOutputEdgg = reader.ReadLine();
+            string JsonOutputEdww = reader.ReadLine();
+            string JsonOutputEdmm = reader.ReadLine();
+            reader.Close();
+
+
+            EDGGProfiles MainEdggProfile = JsonConvert.DeserializeObject<EDGGProfiles>(JsonOutputEdgg);
+
+            if (IsSctPathSet)
+            {
+                MainEdggProfile.PheonixTwr = newPath.SctPath + MainEdggProfile.PheonixTwr;
+                MainEdggProfile.Edgg = newPath.SctPath + MainEdggProfile.Edgg;
+                MainEdggProfile.Eduu = newPath.SctPath + MainEdggProfile.Eduu;
+                MainEdggProfile.EddfApn = newPath.SctPath + MainEdggProfile.EddfApn;
+                MainEdggProfile.Alternate = newPath.SctPath + MainEdggProfile.Alternate;
+                MainEdggProfile.AlternateGrp = newPath.SctPath + MainEdggProfile.AlternateGrp;
+            }
+
+            return MainEdggProfile;
+        }
+
+        public static EDWWProfiles ImportEdwwProfiles()
+        {
+            Paths newPath = ImportPaths();
+            StreamReader reader = new StreamReader(DefaultPath.ConfigPath);
+            string JsonOutputPath = reader.ReadLine();
+            string JsonOutputEdgg = reader.ReadLine();
+            string JsonOutputEdww = reader.ReadLine();
+            string JsonOutputEdmm = reader.ReadLine();
+            reader.Close();
+
+
+            EDWWProfiles MainEdwwProfile = JsonConvert.DeserializeObject<EDWWProfiles>(JsonOutputEdww);
+            
+            if (IsSctPathSet)
+            {
+                MainEdwwProfile.EdbbAppCtr = newPath.SctPath + MainEdwwProfile.EdbbAppCtr;
+                MainEdwwProfile.EdwwAppCtr = newPath.SctPath + MainEdwwProfile.EdwwAppCtr;
+                MainEdwwProfile.EdbbTwr = newPath.SctPath + MainEdwwProfile.EdbbTwr;
+                MainEdwwProfile.EdwwTwr = newPath.SctPath + MainEdwwProfile.EdwwTwr;
+                MainEdwwProfile.EduuCtr = newPath.SctPath + MainEdwwProfile.EduuCtr;
+                MainEdwwProfile.EdyyCtr = newPath.SctPath + MainEdwwProfile.EdyyCtr;                
+            }
+            return MainEdwwProfile;
+        }
+
+
+        public static EDMMProfiles ImportEdmmProfiles()
+        {
+            Paths newPath = ImportPaths();
+            StreamReader reader = new StreamReader(DefaultPath.ConfigPath);
+            string JsonOutputPath = reader.ReadLine();
+            string JsonOutputEdgg = reader.ReadLine();
+            string JsonOutputEdww = reader.ReadLine();
+            string JsonOutputEdmm = reader.ReadLine();
+            reader.Close();
+
+
+            EDMMProfiles MainEdmmProfile = JsonConvert.DeserializeObject<EDMMProfiles>(JsonOutputEdmm);
+
+            if (IsSctPathSet)
+            {
+                MainEdmmProfile.Edmm = newPath.SctPath + MainEdmmProfile.Edmm;
+                MainEdmmProfile.Eduu = newPath.SctPath + MainEdmmProfile.Eduu;
+                MainEdmmProfile.TwrReal = newPath.SctPath + MainEdmmProfile.TwrReal;                
+            }
+            return MainEdmmProfile;
+        }
         public static void SetSctPath(string Path)
         {
             StreamReader streamReader = new StreamReader(DefaultPath.ConfigPath);
@@ -157,6 +195,8 @@ namespace SCTUpdater
             writer.Close();
 
         }
+
+
 
         public static void SetCredentialsPath(string Path)
         {

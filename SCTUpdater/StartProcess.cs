@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using SCTUpdater;
 using static SCTUpdater.Variable;
 
@@ -12,70 +13,79 @@ namespace SCTUpdater
 {
     internal class StartProcess
     {
+        public static Credentials ProcessCredentials;
+        public static Paths ProcessPaths;
+        public static EDGGProfiles ProcessEdggProfiles;
+        public static EDWWProfiles ProcessEdwwProfiles;
+        public static EDMMProfiles ProcessEdmmProfiles;
         private static string profileContentwithout;
 
         //Langen 0, Bremen 1, München 2
         public static void Start(int profil, bool? namecid, bool? password, bool? cpdlc)
         {
-            CredentialProcess.ImportCredentialsJson();
-            Config.ImportConfigJson();
+            ProcessCredentials = CredentialProcess.ImportCredentialsJson();
+            ProcessPaths = Config.ImportPaths();
+            ProcessEdggProfiles = Config.ImportEdggProfiles();
+            ProcessEdwwProfiles = Config.ImportEdwwProfiles();
+            ProcessEdmmProfiles = Config.ImportEdmmProfiles();
+
+
 
             mainTainer(profil, namecid, password, cpdlc);
         }
 
         private static void mainTainer(int profil, bool? namecid, bool? password, bool? cpdlc)
         {
+
             if (profil == 0)
             {
 
-                getProfileContent(MainEdggProfile.PheonixTwr);
-                string builder = generateStuff(MainEdggProfile.PheonixTwr,namecid, password, cpdlc);
-                insertStuff(MainEdggProfile.AlternateGrp, builder);
+                getProfileContent(ProcessEdggProfiles.PheonixTwr);
+                string builder = generateStuff(namecid, password, cpdlc, ProcessCredentials);
+                insertStuff(ProcessEdggProfiles.PheonixTwr, builder, profileContentwithout);
 
-                getProfileContent(MainEdggProfile.Edgg);
-                string builder1 = generateStuff(MainEdggProfile.Edgg, namecid, password, cpdlc);
-                insertStuff(MainEdggProfile.AlternateGrp, builder1);
+                getProfileContent(ProcessEdggProfiles.Edgg);
+                insertStuff(ProcessEdggProfiles.Edgg, builder, profileContentwithout);
 
-                getProfileContent(MainEdggProfile.Eduu);
-                string builder2 = generateStuff(MainEdggProfile.Eduu, namecid, password, cpdlc);
-                insertStuff(MainEdggProfile.AlternateGrp, builder2);
+                getProfileContent(ProcessEdggProfiles.Eduu);
+                insertStuff(ProcessEdggProfiles.Eduu, builder, profileContentwithout);
 
-                getProfileContent(MainEdggProfile.EddfApn);
-                string builder3 = generateStuff(MainEdggProfile.EddfApn, namecid, password, cpdlc);
-                insertStuff(MainEdggProfile.AlternateGrp, builder3);
+                getProfileContent(ProcessEdggProfiles.EddfApn);
+                insertStuff(ProcessEdggProfiles.EddfApn, builder, profileContentwithout);
 
-                getProfileContent(MainEdggProfile.Alternate);
-                string builder4 = generateStuff(MainEdggProfile.Alternate, namecid, password, cpdlc);
-                insertStuff(MainEdggProfile.AlternateGrp, builder4);
+                getProfileContent(ProcessEdggProfiles.Alternate);
+                insertStuff(ProcessEdggProfiles.Alternate, builder, profileContentwithout);
 
-                getProfileContent(MainEdggProfile.AlternateGrp);
-                string builder5 = generateStuff(MainEdggProfile.AlternateGrp, namecid, password, cpdlc);
-                insertStuff(MainEdggProfile.AlternateGrp, builder5);
+                getProfileContent(ProcessEdggProfiles.AlternateGrp);
+                insertStuff(ProcessEdggProfiles.AlternateGrp, builder, profileContentwithout);
+
+
             }
             
         }
 
-        private static void getProfileContent(string path)
+        private static string getProfileContent(string path)
         {
             StreamReader reader = new StreamReader(path);
             profileContentwithout = reader.ReadToEnd();
             reader.Close();
+            return profileContentwithout;
         }
 
-        private static string generateStuff(string path, bool? ifnamecid, bool? ifpassword, bool? ifcpdlc)
+        private static string generateStuff( bool? ifnamecid, bool? ifpassword, bool? ifcpdlc, Credentials ProcessCredentials)
         {
             StringBuilder builder = new StringBuilder();
             if (ifnamecid == true)
             { 
-                string realname = "LastSession realname " + MainCredentials.Name;
-            string certificate = "LastSession certificate " + MainCredentials.Cid;
-            builder.AppendLine(realname);
-            builder.AppendLine(certificate);
+                string realname = "LastSession realname " + ProcessCredentials.Name;
+                string certificate = "LastSession certificate " + ProcessCredentials.Cid;
+                builder.AppendLine(realname);
+                builder.AppendLine(certificate);
             }
 
             if (ifpassword == true)
             {
-                string password = "LastSession password " + MainCredentials.Password;
+                string password = "LastSession password " + ProcessCredentials.Password;
                 builder.AppendLine(password);
             }
 
@@ -83,13 +93,11 @@ namespace SCTUpdater
 
         }
 
-        private static void insertStuff(string path, string builder)
+        private static void insertStuff(string path, string builder, string profileContentwithout)
         {
             string insert = profileContentwithout + "\n" + builder;
 
-            StreamWriter writer = new StreamWriter(path);
-            writer.Write(insert);
-            writer.Close();
+            File.WriteAllText(path,insert);
         }
 
 
