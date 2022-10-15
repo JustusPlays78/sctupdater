@@ -1,0 +1,4 @@
+{"SctPath":null,"ConfigPath":"C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\bin\\Debug\\net5.0-windows\\config.json","CredentialsPath":"C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\bin\\Debug\\net5.0-windows\\credentials.json"}
+{"PheonixTwr":"\\Tower Phoenix.prf","Edgg":"\\EDGG Langen Radar.prf","Eduu":"\\EDUU Rhein Radar.prf","EddfApn":"\\EDDF Apron.prf","Alternate":"\\Alternate.prf","AlternateGrp":"\\Alternate GRP.prf"}
+{"EdwwAppCtr":"\\EDWW-CTR-APP.prf","EdbbAppCtr":"\\EDBB-CTR-APP.prf","EduuCtr":"\\EDUU-CTR.prf","EdyyCtr":"\\EDYY-CTR.prf","EdwwTwr":"\\EDWW-TWR.prf","EdbbTwr":"\\EDBB-TWR.prf"}
+{"Edmm":"\\EDMM.prf","Eduu":"\\EDUU.prf","TwrReal":"\\TWR_REAL.prf"}

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Icon="C:\Users\Julian\Desktop\sctshit\icon.png"
         xmlns:local="clr-namespace:SCTUpdater"
         mc:Ignorable="d"
         Title="SCT Updater" Height="450" Width="800"
