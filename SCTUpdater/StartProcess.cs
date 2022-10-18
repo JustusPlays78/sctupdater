@@ -15,9 +15,6 @@ namespace SCTUpdater
     {
         public static Credentials ProcessCredentials;
         public static Paths ProcessPaths;
-        public static EDGGProfiles ProcessEdggProfiles;
-        public static EDWWProfiles ProcessEdwwProfiles;
-        public static EDMMProfiles ProcessEdmmProfiles;
         private static string profileContentwithout;
 
         //Langen 0, Bremen 1, München 2
@@ -25,9 +22,6 @@ namespace SCTUpdater
         {
             ProcessCredentials = CredentialProcess.ImportCredentialsJson();
             ProcessPaths = Config.ImportPaths();
-            ProcessEdggProfiles = Config.ImportEdggProfiles();
-            ProcessEdwwProfiles = Config.ImportEdwwProfiles();
-            ProcessEdmmProfiles = Config.ImportEdmmProfiles();
 
 
 
@@ -37,31 +31,6 @@ namespace SCTUpdater
         private static void mainTainer(int profil, bool? namecid, bool? password, bool? cpdlc)
         {
 
-            if (profil == 0)
-            {
-
-                getProfileContent(ProcessEdggProfiles.PheonixTwr);
-                string builder = generateStuff(namecid, password, cpdlc, ProcessCredentials);
-                insertStuff(ProcessEdggProfiles.PheonixTwr, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.Edgg);
-                insertStuff(ProcessEdggProfiles.Edgg, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.Eduu);
-                insertStuff(ProcessEdggProfiles.Eduu, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.EddfApn);
-                insertStuff(ProcessEdggProfiles.EddfApn, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.Alternate);
-                insertStuff(ProcessEdggProfiles.Alternate, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.AlternateGrp);
-                insertStuff(ProcessEdggProfiles.AlternateGrp, builder, profileContentwithout);
-
-
-            }
-            
         }
 
         private static string getProfileContent(string path)
@@ -99,8 +68,6 @@ namespace SCTUpdater
 
             File.WriteAllText(path,insert);
         }
-
-
 
         private static void CheckIfCredentialsAlreadyInserted()
         {
