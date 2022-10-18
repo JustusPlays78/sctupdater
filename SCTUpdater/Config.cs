@@ -26,12 +26,13 @@ namespace SCTUpdater
          if no, then it creates a config.json*/
         public static void StartupChecks()
         {
-            ConfigcsPath = ImportPaths();
+            
 
 
             if (CheckConfigJson() == false)
             {
                 CreateConfigJson();
+                ConfigcsPath = ImportPaths();
             }
         }
 
@@ -53,11 +54,17 @@ namespace SCTUpdater
         Thereafter sets the Objects*/
         private static void CreateConfigJson()
         {
-             string ConfigPath = Directory.GetCurrentDirectory() + "\\config.json";
+             string ConfigPathcreate = Directory.GetCurrentDirectory() + "\\config.json";
+             ConfigcsPath = new Paths()
+             {
+                 ConfigPath = ConfigPathcreate,
+                 SctPath = null,
+                 CredentialsPath = Directory.GetCurrentDirectory() + "\\credentials.json"
+             };
 
-            string JsonResultpath = JsonConvert.SerializeObject(ConfigPath);
+            string JsonResultpath = JsonConvert.SerializeObject(ConfigcsPath);
 
-            using (var tw = new StreamWriter(Directory.GetCurrentDirectory() + @"\config.json"))
+            using (var tw = new StreamWriter(ConfigPathcreate))
             {
                 tw.WriteLine(JsonResultpath);
                 tw.Close();
