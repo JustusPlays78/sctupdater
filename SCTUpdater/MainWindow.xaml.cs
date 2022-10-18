@@ -32,29 +32,11 @@ namespace SCTUpdater
             Config.StartupChecks();
             Paths newPath = Config.ImportPaths();
             InitializeComponent();
-            
-            StringBuilder builder = DebugStartOption();
-            DebugBox.Text = builder.ToString();
+
+            string builder = "Hallo";
+            DebugBox.Text = builder;
             
             PathButton.Content = newPath.SctPath;
-        }
-
-        public static StringBuilder DebugStartOption()
-        {
-            EDGGProfiles ProcessEdggProfiles = Config.ImportEdggProfiles();
-            EDWWProfiles ProcessEdwwProfiles = Config.ImportEdwwProfiles();
-            EDMMProfiles ProcessEdmmProfiles = Config.ImportEdmmProfiles();
-            StringBuilder builder = new StringBuilder();
-
-            builder.AppendLine(ProcessEdggProfiles.PheonixTwr);
-            builder.AppendLine(ProcessEdggProfiles.Edgg);
-            builder.AppendLine(ProcessEdggProfiles.Eduu);
-            builder.AppendLine(ProcessEdggProfiles.EddfApn);
-            builder.AppendLine(ProcessEdggProfiles.Alternate);
-            builder.AppendLine(ProcessEdggProfiles.AlternateGrp);
-
-
-            return builder;
         }
 
         /*Opens the Folderdialog and sets the folderpath to the global value*/

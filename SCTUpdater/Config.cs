@@ -20,9 +20,6 @@ namespace SCTUpdater
     {
 
         public static Paths DefaultPath = new Paths();
-        public static EDGGProfiles DefaultEdgg = new EDGGProfiles();
-        public static EDWWProfiles DefaultEdww = new EDWWProfiles();
-        public static EDMMProfiles DefaultEdmm = new EDMMProfiles();
 
         /*Checks if...
          ...Config.json exists,
@@ -30,7 +27,6 @@ namespace SCTUpdater
          if no, then it creates a config.json*/
         public static void StartupChecks()
         {
-            SetDefaultConfigVariables();
 
 
             if (CheckConfigJson() == false)
@@ -60,16 +56,10 @@ namespace SCTUpdater
             DefaultPath.ConfigPath = Directory.GetCurrentDirectory() + "\\config.json";
 
             string JsonResultpath = JsonConvert.SerializeObject(DefaultPath);
-            string JsonResultEdgg= JsonConvert.SerializeObject(DefaultEdgg);
-            string JsonResultEdww = JsonConvert.SerializeObject(DefaultEdww);
-            string JsonResultEdmm = JsonConvert.SerializeObject(DefaultEdmm);
 
             using (var tw = new StreamWriter(Directory.GetCurrentDirectory() + @"\config.json"))
             {
                 tw.WriteLine(JsonResultpath);
-                tw.WriteLine(JsonResultEdgg);
-                tw.WriteLine(JsonResultEdww);
-                tw.WriteLine(JsonResultEdmm);
                 tw.Close();
             }
 
@@ -82,9 +72,6 @@ namespace SCTUpdater
         {
             StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + "\\config.json");
             string JsonOutputPath = reader.ReadLine();
-            string JsonOutputEdgg = reader.ReadLine();
-            string JsonOutputEdww = reader.ReadLine();
-            string JsonOutputEdmm = reader.ReadLine();
             reader.Close();
 
 
@@ -93,87 +80,14 @@ namespace SCTUpdater
             return Mainpath;
         }
 
-        public static EDGGProfiles ImportEdggProfiles()
-        {
-            Paths newPath = ImportPaths();
-            StreamReader reader = new StreamReader(DefaultPath.ConfigPath);
-            string JsonOutputPath = reader.ReadLine();
-            string JsonOutputEdgg = reader.ReadLine();
-            string JsonOutputEdww = reader.ReadLine();
-            string JsonOutputEdmm = reader.ReadLine();
-            reader.Close();
 
 
-            EDGGProfiles MainEdggProfile = JsonConvert.DeserializeObject<EDGGProfiles>(JsonOutputEdgg);
 
-            if (IsSctPathSet)
-            {
-                MainEdggProfile.PheonixTwr = newPath.SctPath + MainEdggProfile.PheonixTwr;
-                MainEdggProfile.Edgg = newPath.SctPath + MainEdggProfile.Edgg;
-                MainEdggProfile.Eduu = newPath.SctPath + MainEdggProfile.Eduu;
-                MainEdggProfile.EddfApn = newPath.SctPath + MainEdggProfile.EddfApn;
-                MainEdggProfile.Alternate = newPath.SctPath + MainEdggProfile.Alternate;
-                MainEdggProfile.AlternateGrp = newPath.SctPath + MainEdggProfile.AlternateGrp;
-            }
-
-            return MainEdggProfile;
-        }
-
-        public static EDWWProfiles ImportEdwwProfiles()
-        {
-            Paths newPath = ImportPaths();
-            StreamReader reader = new StreamReader(DefaultPath.ConfigPath);
-            string JsonOutputPath = reader.ReadLine();
-            string JsonOutputEdgg = reader.ReadLine();
-            string JsonOutputEdww = reader.ReadLine();
-            string JsonOutputEdmm = reader.ReadLine();
-            reader.Close();
-
-
-            EDWWProfiles MainEdwwProfile = JsonConvert.DeserializeObject<EDWWProfiles>(JsonOutputEdww);
-            
-            if (IsSctPathSet)
-            {
-                MainEdwwProfile.EdbbAppCtr = newPath.SctPath + MainEdwwProfile.EdbbAppCtr;
-                MainEdwwProfile.EdwwAppCtr = newPath.SctPath + MainEdwwProfile.EdwwAppCtr;
-                MainEdwwProfile.EdbbTwr = newPath.SctPath + MainEdwwProfile.EdbbTwr;
-                MainEdwwProfile.EdwwTwr = newPath.SctPath + MainEdwwProfile.EdwwTwr;
-                MainEdwwProfile.EduuCtr = newPath.SctPath + MainEdwwProfile.EduuCtr;
-                MainEdwwProfile.EdyyCtr = newPath.SctPath + MainEdwwProfile.EdyyCtr;                
-            }
-            return MainEdwwProfile;
-        }
-
-
-        public static EDMMProfiles ImportEdmmProfiles()
-        {
-            Paths newPath = ImportPaths();
-            StreamReader reader = new StreamReader(DefaultPath.ConfigPath);
-            string JsonOutputPath = reader.ReadLine();
-            string JsonOutputEdgg = reader.ReadLine();
-            string JsonOutputEdww = reader.ReadLine();
-            string JsonOutputEdmm = reader.ReadLine();
-            reader.Close();
-
-
-            EDMMProfiles MainEdmmProfile = JsonConvert.DeserializeObject<EDMMProfiles>(JsonOutputEdmm);
-
-            if (IsSctPathSet)
-            {
-                MainEdmmProfile.Edmm = newPath.SctPath + MainEdmmProfile.Edmm;
-                MainEdmmProfile.Eduu = newPath.SctPath + MainEdmmProfile.Eduu;
-                MainEdmmProfile.TwrReal = newPath.SctPath + MainEdmmProfile.TwrReal;                
-            }
-            return MainEdmmProfile;
-        }
         public static void SetSctPath(string Path)
         {
             StreamReader streamReader = new StreamReader(DefaultPath.ConfigPath);
 
             string Line1 = streamReader.ReadLine();
-            string Line2 = streamReader.ReadLine();
-            string Line3 = streamReader.ReadLine();
-            string Line4 = streamReader.ReadLine();
             streamReader.Close();
 
             Paths Json = JsonConvert.DeserializeObject<Paths>(Line1);
@@ -190,9 +104,6 @@ namespace SCTUpdater
 
             StreamWriter writer = new StreamWriter(DefaultPath.ConfigPath);
             writer.WriteLine(line1Edited);
-            writer.WriteLine(Line2);
-            writer.WriteLine(Line3);
-            writer.WriteLine(Line4);
             writer.Close();
 
         }
@@ -204,8 +115,6 @@ namespace SCTUpdater
             StreamReader streamReader = new StreamReader(DefaultPath.ConfigPath);
 
             string Line1 = streamReader.ReadLine();
-            string Line2 = streamReader.ReadLine();
-            string Line3 = streamReader.ReadLine();
 
             Paths Json = JsonConvert.DeserializeObject<Paths>(Line1);
 
@@ -221,36 +130,9 @@ namespace SCTUpdater
 
             StreamWriter writer = new StreamWriter(DefaultPath.ConfigPath);
             writer.WriteLine(line1Edited);
-            writer.WriteLine(Line2);
-            writer.WriteLine(Line3);
             writer.Close();
         }
 
-        /*Setzt die Standartwerte für die config.json*/
-        private static void SetDefaultConfigVariables()
-        {
-
-            DefaultPath.ConfigPath = Directory.GetCurrentDirectory() + @"\config.json";
-            DefaultPath.CredentialsPath = Directory.GetCurrentDirectory() + @"\credentials.json";
-
-            DefaultEdgg.PheonixTwr = @"\Tower Phoenix.prf";
-            DefaultEdgg.Edgg = @"\EDGG Langen Radar.prf";
-            DefaultEdgg.Eduu = @"\EDUU Rhein Radar.prf";
-            DefaultEdgg.EddfApn = @"\EDDF Apron.prf";
-            DefaultEdgg.Alternate = @"\Alternate.prf";
-            DefaultEdgg.AlternateGrp = @"\Alternate GRP.prf";
-
-            DefaultEdww.EdbbAppCtr = @"\EDBB-CTR-APP.prf";
-            DefaultEdww.EdwwAppCtr = @"\EDWW-CTR-APP.prf";
-            DefaultEdww.EdbbTwr = @"\EDBB-TWR.prf";
-            DefaultEdww.EdwwTwr = @"\EDWW-TWR.prf";
-            DefaultEdww.EduuCtr = @"\EDUU-CTR.prf";
-            DefaultEdww.EdyyCtr = @"\EDYY-CTR.prf";
-
-            DefaultEdmm.Edmm = @"\EDMM.prf";
-            DefaultEdmm.Eduu = @"\EDUU.prf";
-            DefaultEdmm.TwrReal = @"\TWR_REAL.prf";
-        }
 
     }
 }
