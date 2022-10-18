@@ -136,30 +136,33 @@
                     </Button.Template>
                 </Button>
 
-                <TabControl Margin="0,10,0,0">
-                    <TabItem Header="EDGG"
-                             Background="LightSlateGray">
-                        <StackPanel Background="#0F0F2D">
-                            <CheckBox Content="Name/CID"
+
+                <StackPanel Background="#0F0F2D"
+                            Margin="0,20,0,0">
+                    <CheckBox Content="Name/CID"
                                       Foreground="White"
                                       x:Name="EdggNameCidCheckBox">
-                            </CheckBox>
-                            <CheckBox Content="Password"
+                    </CheckBox>
+                    <CheckBox Content="Password"
                                       Foreground="White"
-                                      x:Name="EdggPasswordCheckBox">
-                            </CheckBox>
-                            <CheckBox Content="CPDLC"
+                                      x:Name="EdggPasswordCheckBox"
+                                      Margin="0,10,0,0">
+                    </CheckBox>
+                    <CheckBox Content="CPDLC"
                                       Foreground="White"
-                                      x:Name="EdggPasswordCpdlc">
-                            </CheckBox>
-                            <CheckBox Content="HDG Drawtool"
+                                      x:Name="EdggPasswordCpdlc"
+                                      Margin="0,10,0,0">
+                    </CheckBox>
+                    <CheckBox Content="HDG Drawtool"
                                       Foreground="White"
-                                      x:Name="EdggHdgDrawToolCheckBox">
-                            </CheckBox>
-                            <CheckBox Content="extra"
-                                      Foreground="White">
-                            </CheckBox>
-                            <Button Content="Start"
+                                      x:Name="EdggHdgDrawToolCheckBox"
+                                      Margin="0,10,0,0">
+                    </CheckBox>
+                    <CheckBox Content="extra"
+                                      Foreground="White"
+                                      Margin="0,10,0,0">
+                    </CheckBox>
+                    <Button Content="Start"
                                     Foreground="White"
                                     FontSize="14"
                                     FontWeight="Medium"
@@ -168,133 +171,31 @@
                                     x:Name="EdggButtonProcessStart"
                                     IsEnabled="false">
 
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Background" Value="#FE6584"></Setter>
-                                        <Setter Property="Cursor" Value="Hand"></Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#3A3952"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Width="100" Height="25"
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#FE6584"></Setter>
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#3A3952"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="100" Height="25"
                                                 CornerRadius="12"
                                                 Background="{TemplateBinding Background}">
-                                            <ContentPresenter VerticalAlignment="Center"
+                                    <ContentPresenter VerticalAlignment="Center"
                                                               HorizontalAlignment="Center">
 
-                                            </ContentPresenter>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="EDWW"
-                             Background="LightSlateGray">
-                        <StackPanel Background="#0F0F2D">
-                            <CheckBox Content="Name/CID"
-                                      Foreground="White"
-                                      x:Name="EdwwNameCidCheckBox">
-                            </CheckBox>
-                            <CheckBox Content="Password"
-                                      Foreground="White"
-                                      x:Name="EdwwPasswordCheckBox">
-
-                            </CheckBox>
-                            <CheckBox Content="CPDLC"
-                                      Foreground="White"
-                                      x:Name="EdwwCpdlcCheckBox">
-
-                            </CheckBox>
-                            <Button Content="Start"
-                                    Foreground="White"
-                                    FontSize="14"
-                                    FontWeight="Medium"
-                                    Margin="0,0,10,0"
-                                    Click="EdwwButtonProcessStart">
-
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Background" Value="#FE6584"></Setter>
-                                        <Setter Property="Cursor" Value="Hand"></Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#3A3952"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Width="100" Height="25"
-                                                CornerRadius="12"
-                                                Background="{TemplateBinding Background}">
-                                            <ContentPresenter VerticalAlignment="Center"
-                                                              HorizontalAlignment="Center">
-
-                                            </ContentPresenter>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="EDMM"
-                             Background="LightSlateGray">
-                        <StackPanel Background="#0F0F2D">
-                            <CheckBox Content="Name/CID"
-                                      Foreground="White"
-                                      x:Name="EdmmNameCidCheckBox">
-                            </CheckBox>
-                            <CheckBox Content="Password"
-                                      Foreground="White"
-                                      x:Name="EdmmPasswordCheckBox">
-
-                            </CheckBox>
-                            <CheckBox Content="CPDLC"
-                                      Foreground="White"
-                                      x:Name="EdmmCpldcPasswordCheckBox">
-
-                            </CheckBox>
-                            <Button Content="Start"
-                                    Foreground="White"
-                                    FontSize="14"
-                                    FontWeight="Medium"
-                                    Margin="0,0,10,0"
-                                    Click="EdmmButtonProcessStart">
-
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Background" Value="#FE6584"></Setter>
-                                        <Setter Property="Cursor" Value="Hand"></Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#3A3952"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Width="100" Height="25"
-                                                CornerRadius="12"
-                                                Background="{TemplateBinding Background}">
-                                            <ContentPresenter VerticalAlignment="Center"
-                                                              HorizontalAlignment="Center">
-
-                                            </ContentPresenter>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </StackPanel>
-                    </TabItem>
-                </TabControl>
+                                    </ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
 
 
             </StackPanel>
@@ -378,7 +279,7 @@
                 </Button.Template>
             </Button>
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Margin="33,260,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"
-                   Background="White" Height="131" Width="297" x:Name="DebugBox"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,264,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"
+                   Background="White" Height="131" Width="296" x:Name="DebugBox" Grid.Column="1"/>
     </Grid>
 </Window>
