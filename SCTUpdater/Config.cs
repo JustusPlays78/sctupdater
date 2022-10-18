@@ -18,8 +18,7 @@ namespace SCTUpdater
 {
     internal class Config
     {
-
-        public static Paths DefaultPath = new Paths();
+        public static Paths ConfigcsPath;
 
         /*Checks if...
          ...Config.json exists,
@@ -27,6 +26,7 @@ namespace SCTUpdater
          if no, then it creates a config.json*/
         public static void StartupChecks()
         {
+            ConfigcsPath = ImportPaths();
 
 
             if (CheckConfigJson() == false)
@@ -53,9 +53,9 @@ namespace SCTUpdater
         Thereafter sets the Objects*/
         private static void CreateConfigJson()
         {
-            DefaultPath.ConfigPath = Directory.GetCurrentDirectory() + "\\config.json";
+             string ConfigPath = Directory.GetCurrentDirectory() + "\\config.json";
 
-            string JsonResultpath = JsonConvert.SerializeObject(DefaultPath);
+            string JsonResultpath = JsonConvert.SerializeObject(ConfigPath);
 
             using (var tw = new StreamWriter(Directory.GetCurrentDirectory() + @"\config.json"))
             {
@@ -85,7 +85,7 @@ namespace SCTUpdater
 
         public static void SetSctPath(string Path)
         {
-            StreamReader streamReader = new StreamReader(DefaultPath.ConfigPath);
+            StreamReader streamReader = new StreamReader(ConfigcsPath.ConfigPath);
 
             string Line1 = streamReader.ReadLine();
             streamReader.Close();
@@ -102,7 +102,7 @@ namespace SCTUpdater
             string line1Edited = JsonConvert.SerializeObject(newPaths);
 
 
-            StreamWriter writer = new StreamWriter(DefaultPath.ConfigPath);
+            StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
             writer.WriteLine(line1Edited);
             writer.Close();
 
@@ -112,7 +112,7 @@ namespace SCTUpdater
 
         public static void SetCredentialsPath(string Path)
         {
-            StreamReader streamReader = new StreamReader(DefaultPath.ConfigPath);
+            StreamReader streamReader = new StreamReader(ConfigcsPath.ConfigPath);
 
             string Line1 = streamReader.ReadLine();
 
@@ -128,7 +128,7 @@ namespace SCTUpdater
 
             string line1Edited = JsonConvert.SerializeObject(newPaths);
 
-            StreamWriter writer = new StreamWriter(DefaultPath.ConfigPath);
+            StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
             writer.WriteLine(line1Edited);
             writer.Close();
         }

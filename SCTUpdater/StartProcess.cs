@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Shapes;
 using Newtonsoft.Json;
 using SCTUpdater;
 using static SCTUpdater.Variable;
+using Path = System.IO.Path;
 
 namespace SCTUpdater
 {
@@ -15,53 +19,34 @@ namespace SCTUpdater
     {
         public static Credentials ProcessCredentials;
         public static Paths ProcessPaths;
-        public static EDGGProfiles ProcessEdggProfiles;
-        public static EDWWProfiles ProcessEdwwProfiles;
-        public static EDMMProfiles ProcessEdmmProfiles;
         private static string profileContentwithout;
 
+        private static List<string> Profiles = new List<string>();
+
         //Langen 0, Bremen 1, München 2
-        public static void Start(int profil, bool? namecid, bool? password, bool? cpdlc)
+        public static void Start(bool? namecid, bool? password, bool? cpdlc)
         {
             ProcessCredentials = CredentialProcess.ImportCredentialsJson();
             ProcessPaths = Config.ImportPaths();
-            ProcessEdggProfiles = Config.ImportEdggProfiles();
-            ProcessEdwwProfiles = Config.ImportEdwwProfiles();
-            ProcessEdmmProfiles = Config.ImportEdmmProfiles();
 
 
 
-            mainTainer(profil, namecid, password, cpdlc);
+            mainTainer(namecid, password, cpdlc);
         }
 
-        private static void mainTainer(int profil, bool? namecid, bool? password, bool? cpdlc)
+        private static void mainTainer(bool? namecid, bool? password, bool? cpdlc)
         {
-
-            if (profil == 0)
+            string builder = generateStuff(namecid, password, cpdlc, ProcessCredentials);
+            GetProfileFiles();
+            foreach (var file in Profiles)
             {
-
-                getProfileContent(ProcessEdggProfiles.PheonixTwr);
-                string builder = generateStuff(namecid, password, cpdlc, ProcessCredentials);
-                insertStuff(ProcessEdggProfiles.PheonixTwr, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.Edgg);
-                insertStuff(ProcessEdggProfiles.Edgg, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.Eduu);
-                insertStuff(ProcessEdggProfiles.Eduu, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.EddfApn);
-                insertStuff(ProcessEdggProfiles.EddfApn, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.Alternate);
-                insertStuff(ProcessEdggProfiles.Alternate, builder, profileContentwithout);
-
-                getProfileContent(ProcessEdggProfiles.AlternateGrp);
-                insertStuff(ProcessEdggProfiles.AlternateGrp, builder, profileContentwithout);
-
+                if (CheckIfCredentialsAlreadyInserted(file) == false)
+                {
+                    getProfileContent(file);
+                    insertStuff(file, builder, profileContentwithout);
+                }
 
             }
-            
         }
 
         private static string getProfileContent(string path)
@@ -89,6 +74,10 @@ namespace SCTUpdater
                 builder.AppendLine(password);
             }
 
+            if(ifcpdlc == true)
+            {
+                EditHoppieCode();          
+            }
             return builder.ToString();
 
         }
@@ -97,14 +86,46 @@ namespace SCTUpdater
         {
             string insert = profileContentwithout + "\n" + builder;
 
-            File.WriteAllText(path,insert);
+            File.WriteAllText(path, insert);
         }
 
 
-
-        private static void CheckIfCredentialsAlreadyInserted()
+        private static bool CheckIfCredentialsAlreadyInserted(string path)
         {
-           
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string[] lines = File.ReadAllLines(path);
+                string check = "realname";
+                string[] checkArray = new string[] {"realname", "certificate", "password" };
+                if (checkArray.Any(File.ReadAllText(path).Contains))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+        private static void GetProfileFiles()
+        {
+            var files = Directory.GetFiles(ProcessPaths.SctPath, "*.prf");
+            foreach (var file in files)
+            {
+                Profiles.Add(file);
+            }
+
+        }
+
+        private static void EditHoppieCode()
+        {
+            var files = Directory.GetFiles(ProcessPaths.SctPath, "*.txt");
+            foreach (var file in files)
+            {
+                string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
+                if(fileName == "TopSkyCPDLChoppieCode")
+                {
+                    File.WriteAllText(file, ProcessCredentials.Cpdlc);
+                }
+            }
         }
     }
 }

@@ -33,8 +33,9 @@ namespace SCTUpdater
             Paths newPath = Config.ImportPaths();
             InitializeComponent();
 
-            string builder = "Hallo";
+            string builder = "Debug. WIP";
             DebugBox.Text = builder;
+            DebugBox.Visibility = Visibility.Hidden;
             
             PathButton.Content = newPath.SctPath;
         }
@@ -93,26 +94,8 @@ namespace SCTUpdater
             bool? CopyPassword = EdggPasswordCheckBox.IsChecked;
             bool? CopyCpdlc = EdggPasswordCpdlc.IsChecked;
 
-            StartProcess.Start(0, CopyCid, CopyPassword, CopyCpdlc);
+            StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc);
             MessageBox.Show("Done");
-        }
-
-        private void EdwwButtonProcessStart(object sender, RoutedEventArgs e)
-        {
-            bool? CopyCid = EdwwNameCidCheckBox.IsChecked;
-            bool? CopyPassword = EdwwPasswordCheckBox.IsChecked;
-            bool? CopyCpdlc = EdwwCpdlcCheckBox.IsChecked;
-
-            StartProcess.Start(1, CopyCid, CopyPassword, CopyCpdlc);
-        }
-
-        private void EdmmButtonProcessStart(object sender, RoutedEventArgs e)
-        {
-            bool? CopyCid = EdmmNameCidCheckBox.IsChecked;
-            bool? CopyPassword = EdmmPasswordCheckBox.IsChecked;
-            bool? CopyCpdlc = EdmmCpldcPasswordCheckBox.IsChecked;
-
-            StartProcess.Start(2, CopyCid, CopyPassword, CopyCpdlc);
         }
     }
 }

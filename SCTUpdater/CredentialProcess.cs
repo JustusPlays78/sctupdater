@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
-using static SCTUpdater.Config;
+
 
 namespace SCTUpdater
 {
     internal class CredentialProcess
     {
+
+        public static Paths CredentialsProcessPaths;
+
+
+
         /*Checks if Credentialsfile exists,
         if yes he starts writing
         if not he creates the json and writes it*/
         public static void SaveCredentials(string name, long cid, string password, string CDPLC)
         {
+            CredentialsProcessPaths = Config.ImportPaths();
             if (CheckCredentialsJson())
             {
-                File.Delete(DefaultPath.CredentialsPath);
+                File.Delete(CredentialsProcessPaths.CredentialsPath);
                 CreateCredentialsJson(name, cid, password, CDPLC);
             }
             else
@@ -31,7 +38,8 @@ namespace SCTUpdater
         /*Checks if the File exists*/
         private static bool CheckCredentialsJson()
         {
-            if (File.Exists(DefaultPath.CredentialsPath))
+            CredentialsProcessPaths = Config.ImportPaths();
+            if (File.Exists(CredentialsProcessPaths.CredentialsPath))
             {
                 return true;
             }
@@ -57,7 +65,7 @@ namespace SCTUpdater
 
             string Json = JsonConvert.SerializeObject(saveCredentials);
 
-            using (StreamWriter streamWriter = new StreamWriter(DefaultPath.CredentialsPath))
+            using (StreamWriter streamWriter = new StreamWriter(CredentialsProcessPaths.CredentialsPath))
             {
                 streamWriter.Write(Json);
                 streamWriter.Close();
@@ -66,7 +74,8 @@ namespace SCTUpdater
 
         public static Credentials? ImportCredentialsJson()
         {
-            StreamReader reader = new StreamReader(DefaultPath.CredentialsPath);
+            CredentialsProcessPaths = Config.ImportPaths();
+            StreamReader reader = new StreamReader(CredentialsProcessPaths.CredentialsPath);
             string JsonOutput = reader.ReadToEnd();
             if (JsonConvert.DeserializeObject<Credentials>(JsonOutput) != null)
             {
