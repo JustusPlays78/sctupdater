@@ -7,8 +7,9 @@
 ## How to use
 - When you first use the application set the credentials on the right.
 - Then click on "Save Credentials". The programm will now create a credentials.json
-- Now selelect the PRF Folder
-- For Version **Alpha 0.2.0** only EDGG Profil is working
+- Now selelect the PRF Folder of your Sectorfile (It works with every SCT that is being used for Euroscope)
+- It works for all Packages
 - Choose if you want to have your CID/Name and/or Password inserted
-- Click "Start Process" to start inserting your cid and password
-- After the Done MessageBox the login credentials should be inserted
+- Choose if you want to have your CPDLC Code inserted
+- Click "Start Process" to start inserting your cid and password and CPDLC Hoppie Code
+- After the Done MessageBox the login credentials and Hoppie Code should be inserted in all the files needed.
