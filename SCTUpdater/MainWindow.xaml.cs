@@ -27,6 +27,7 @@ namespace SCTUpdater
     }
     public partial class MainWindow : Window
     {
+        public static MainWindow Main { get; set; }
         public MainWindow()
         {
             Config.StartupChecks();
@@ -35,9 +36,14 @@ namespace SCTUpdater
 
             string builder = "Debug. WIP";
             DebugBox.Text = builder;
-            DebugBox.Visibility = Visibility.Hidden;
+            DebugBox.Visibility = Visibility.Visible;
             
             PathButton.Content = newPath.SctPath;
+        }
+
+        private void OnContentRendered(object sender, EventArgs e)
+        {
+            Main = this;
         }
 
         /*Opens the Folderdialog and sets the folderpath to the global value*/
@@ -93,8 +99,9 @@ namespace SCTUpdater
             bool? CopyCid = EdggNameCidCheckBox.IsChecked;
             bool? CopyPassword = EdggPasswordCheckBox.IsChecked;
             bool? CopyCpdlc = EdggPasswordCpdlc.IsChecked;
+            bool? CopyHdgDrawTool = EdggHdgDrawToolCheckBox.IsChecked;
 
-            StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc);
+            StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc, CopyHdgDrawTool);
             MessageBox.Show("Done");
         }
     }

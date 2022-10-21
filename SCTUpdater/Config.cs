@@ -16,7 +16,7 @@ using static SCTUpdater.Strings;
 
 namespace SCTUpdater
 {
-    internal class Config
+    internal class Config : MainWindow
     {
         public static Paths ConfigcsPath;
 
@@ -26,14 +26,14 @@ namespace SCTUpdater
          if no, then it creates a config.json*/
         public static void StartupChecks()
         {
-            
-
 
             if (CheckConfigJson() == false)
             {
                 CreateConfigJson();
                 ConfigcsPath = ImportPaths();
             }
+
+            ConfigcsPath = ImportPaths();
         }
 
         /*Cheks if Config.json exists*/
@@ -113,9 +113,10 @@ namespace SCTUpdater
             writer.WriteLine(line1Edited);
             writer.Close();
 
+            List<string> topskyFolders = GetTopskyFolders(Path);
+            RenderTopskyFoldersPanel(topskyFolders);
+
         }
-
-
 
         public static void SetCredentialsPath(string Path)
         {
@@ -140,6 +141,35 @@ namespace SCTUpdater
             writer.Close();
         }
 
+        private static List<string> GetTopskyFolders(string path)
+        {
+            List<string> topskyFolders = new List<string>();
+            var AllPluginDlls = Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories);
 
+            foreach (var plugin in AllPluginDlls)
+            {
+                var pluginName = System.IO.Path.GetFileNameWithoutExtension(plugin);
+                if (pluginName == "TopSky")
+                {
+                    string topskyDirectory = Path.GetDirectoryName(plugin);
+                    topskyFolders.Add(topskyDirectory);
+                }
+            }
+
+            return topskyFolders;
+        }
+
+        private static void RenderTopskyFoldersPanel(List<string> topskyFolders)
+        {
+            var textBox = Main.DebugBox;
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var folder in topskyFolders)
+            {
+                stringBuilder.AppendLine(folder);
+            }
+
+            textBox.Text = stringBuilder.ToString();
+        }
     }
 }
