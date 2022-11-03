@@ -16,7 +16,7 @@ using static SCTUpdater.Strings;
 
 namespace SCTUpdater
 {
-    internal class Config
+    internal class Config : HomePage
     {
         public static Paths ConfigcsPath;
 
@@ -26,13 +26,14 @@ namespace SCTUpdater
          if no, then it creates a config.json*/
         public static void StartupChecks()
         {
-            ConfigcsPath = ImportPaths();
-
 
             if (CheckConfigJson() == false)
             {
                 CreateConfigJson();
+                ConfigcsPath = ImportPaths();
             }
+
+            ConfigcsPath = ImportPaths();
         }
 
         /*Cheks if Config.json exists*/
@@ -53,11 +54,17 @@ namespace SCTUpdater
         Thereafter sets the Objects*/
         private static void CreateConfigJson()
         {
-             string ConfigPath = Directory.GetCurrentDirectory() + "\\config.json";
+             string ConfigPathcreate = Directory.GetCurrentDirectory() + "\\config.json";
+             ConfigcsPath = new Paths()
+             {
+                 ConfigPath = ConfigPathcreate,
+                 SctPath = null,
+                 CredentialsPath = Directory.GetCurrentDirectory() + "\\credentials.json"
+             };
 
-            string JsonResultpath = JsonConvert.SerializeObject(ConfigPath);
+            string JsonResultpath = JsonConvert.SerializeObject(ConfigcsPath);
 
-            using (var tw = new StreamWriter(Directory.GetCurrentDirectory() + @"\config.json"))
+            using (var tw = new StreamWriter(ConfigPathcreate))
             {
                 tw.WriteLine(JsonResultpath);
                 tw.Close();
@@ -106,9 +113,10 @@ namespace SCTUpdater
             writer.WriteLine(line1Edited);
             writer.Close();
 
+            List<string> topskyFolders = GetTopskyFolders(Path);
+            RenderTopskyFoldersPanel(topskyFolders);
+
         }
-
-
 
         public static void SetCredentialsPath(string Path)
         {
@@ -133,6 +141,35 @@ namespace SCTUpdater
             writer.Close();
         }
 
+        private static List<string> GetTopskyFolders(string path)
+        {
+            List<string> topskyFolders = new List<string>();
+            var AllPluginDlls = Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories);
 
+            foreach (var plugin in AllPluginDlls)
+            {
+                var pluginName = System.IO.Path.GetFileNameWithoutExtension(plugin);
+                if (pluginName == "TopSky")
+                {
+                    string topskyDirectory = Path.GetDirectoryName(plugin);
+                    topskyFolders.Add(topskyDirectory);
+                }
+            }
+
+            return topskyFolders;
+        }
+
+        private static void RenderTopskyFoldersPanel(List<string> topskyFolders)
+        {
+            var textBox = Main.DebugBox;
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var folder in topskyFolders)
+            {
+                stringBuilder.AppendLine(folder);
+            }
+
+            textBox.Text = stringBuilder.ToString();
+        }
     }
 }

@@ -1,0 +1,6 @@
+C:\Users\Julian\Desktop\sctshit\singlefiletest\SCTUpdater.exe
+C:\Users\Julian\Desktop\sctshit\singlefiletest\SCTUpdater.dll
+C:\Users\Julian\Desktop\sctshit\singlefiletest\SCTUpdater.deps.json
+C:\Users\Julian\Desktop\sctshit\singlefiletest\SCTUpdater.runtimeconfig.json
+C:\Users\Julian\Desktop\sctshit\singlefiletest\SCTUpdater.pdb
+C:\Users\Julian\Desktop\sctshit\singlefiletest\Newtonsoft.Json.dll

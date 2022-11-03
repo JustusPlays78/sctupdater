@@ -3,7 +3,6 @@ C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\SCTUpdater.runtimeconfig.json
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\SCTUpdater.runtimeconfig.dev.json
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\SCTUpdater.dll
-C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\SCTUpdater.pdb
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\Newtonsoft.Json.dll
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.csproj.AssemblyReference.cache
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\MainWindow.g.cs
@@ -19,6 +18,10 @@ C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.csproj.CopyComplete
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.dll
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\refint\SCTUpdater.dll
-C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.pdb
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.genruntimeconfig.cache
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\ref\SCTUpdater.dll
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater_Content.g.cs
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\SCTUpdater.pdb
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.pdb
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\HomePage.g.cs
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\HomePage.baml

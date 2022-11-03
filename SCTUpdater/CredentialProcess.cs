@@ -21,7 +21,7 @@ namespace SCTUpdater
         /*Checks if Credentialsfile exists,
         if yes he starts writing
         if not he creates the json and writes it*/
-        public static void SaveCredentials(string name, long cid, string password, string CDPLC)
+        public static void SaveCredentials(string name, long cid, string? password, string? CDPLC)
         {
             CredentialsProcessPaths = Config.ImportPaths();
             if (CheckCredentialsJson())
@@ -88,6 +88,11 @@ namespace SCTUpdater
             {
                 return null;
             }
+        }
+
+        public static void EnterCredentials()
+        {
+            
         }
     }
 }
