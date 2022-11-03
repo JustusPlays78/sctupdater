@@ -25,5 +25,3 @@ C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\bin\Debug\net5.0-windows\
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\SCTUpdater.pdb
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\HomePage.g.cs
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\HomePage.baml
-C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\CredentialsTab.g.cs
-C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Debug\net5.0-windows\CredentialsTab.baml

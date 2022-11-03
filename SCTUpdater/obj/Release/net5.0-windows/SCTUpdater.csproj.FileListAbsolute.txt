@@ -22,3 +22,6 @@ C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-window
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\SCTUpdater.pdb
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\SCTUpdater.genruntimeconfig.cache
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\ref\SCTUpdater.dll
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\HomePage.g.cs
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\SCTUpdater_Content.g.cs
+C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\HomePage.baml

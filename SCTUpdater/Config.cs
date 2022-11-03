@@ -16,7 +16,7 @@ using static SCTUpdater.Strings;
 
 namespace SCTUpdater
 {
-    internal class Config : MainWindow
+    internal class Config : HomePage
     {
         public static Paths ConfigcsPath;
 

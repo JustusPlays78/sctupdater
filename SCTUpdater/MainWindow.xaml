@@ -9,7 +9,6 @@
     Width="800"
     Height="450"
     Background="#181735"
-    ContentRendered="OnContentRendered"
     ResizeMode="NoResize"
     WindowStyle="None"
     mc:Ignorable="d">

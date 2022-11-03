@@ -27,7 +27,7 @@ namespace SCTUpdater
     }
     public partial class MainWindow : Window
     {
-        public static MainWindow Main { get; set; }
+        //public static MainWindow Main { get; set; }
         public MainWindow()
         {
             Config.StartupChecks();
@@ -41,10 +41,10 @@ namespace SCTUpdater
             PathButton.Content = newPath.SctPath;
         }
 
-        private void OnContentRendered(object sender, EventArgs e)
-        {
-            Main = this;
-        }
+        //private void OnContentRendered(object sender, EventArgs e)
+        //{
+        //    Main = this;
+        //}
 
         /*Opens the Folderdialog and sets the folderpath to the global value*/
         private void folderButton(object sender, RoutedEventArgs e)

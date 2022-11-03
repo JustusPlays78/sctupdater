@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET5_0;NETCOREAPP
 C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\App.xaml
-11407045341
-
-9-753321966
+2-11023367
+1668176366
+10657828229
 2031728012223
-MainWindow.xaml;
+HomePage.xaml;MainWindow.xaml;
 
-True
+False
 
