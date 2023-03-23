@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,17 +27,17 @@ namespace SCTUpdater
         private static List<string> Profiles = new List<string>();
 
         //Langen 0, Bremen 1, München 2
-        public static void Start(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool)
+        public static void Start(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool, bool? insertcustomjson)
         {
             ProcessCredentials = CredentialProcess.ImportCredentialsJson();
             ProcessPaths = Config.ImportPaths();
 
 
 
-            mainTainer(namecid, password, cpdlc, hdgdrawtool);
+            mainTainer(namecid, password, cpdlc, hdgdrawtool, insertcustomjson);
         }
 
-        private static void mainTainer(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool)
+        private static void mainTainer(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool, bool? insertcustomjson)
         {
             string builder = generateStuff(namecid, password, cpdlc, hdgdrawtool,ProcessCredentials);
             GetProfileFiles();
@@ -47,8 +48,14 @@ namespace SCTUpdater
                     getProfileContent(file);
                     insertStuff(file, builder, profileContentwithout);
                 }
+            }
+
+            if (insertcustomjson == true)
+            {
+                string builder2 = CustomJson.Maintainer();
 
             }
+
         }
 
         private static string getProfileContent(string path)

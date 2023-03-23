@@ -59,7 +59,8 @@ namespace SCTUpdater
              {
                  ConfigPath = ConfigPathcreate,
                  SctPath = null,
-                 CredentialsPath = Directory.GetCurrentDirectory() + "\\credentials.json"
+                 CredentialsPath = Directory.GetCurrentDirectory() + "\\credentials.json",
+                 CustomJsonPath = null,
              };
 
             string JsonResultpath = JsonConvert.SerializeObject(ConfigcsPath);
@@ -104,6 +105,7 @@ namespace SCTUpdater
                 SctPath = Path,
                 ConfigPath = Json.ConfigPath,
                 CredentialsPath = Json.CredentialsPath,
+                CustomJsonPath = Json.CustomJsonPath,
             };
 
             string line1Edited = JsonConvert.SerializeObject(newPaths);
@@ -115,6 +117,31 @@ namespace SCTUpdater
 
             List<string> topskyFolders = GetTopskyFolders(Path);
             RenderTopskyFoldersPanel(topskyFolders);
+
+        }
+        public static void SetJsonPath(string Path)
+        {
+            StreamReader streamReader = new StreamReader(ConfigcsPath.ConfigPath);
+
+            string Line1 = streamReader.ReadLine();
+            streamReader.Close();
+
+            Paths Json = JsonConvert.DeserializeObject<Paths>(Line1);
+
+            Paths newPaths = new Paths
+            {
+                SctPath = Json.SctPath,
+                ConfigPath = Json.ConfigPath,
+                CredentialsPath = Json.CredentialsPath,
+                CustomJsonPath = Path,
+            };
+
+            string line1Edited = JsonConvert.SerializeObject(newPaths);
+
+
+            StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
+            writer.WriteLine(line1Edited);
+            writer.Close();
 
         }
 
@@ -132,6 +159,7 @@ namespace SCTUpdater
                 SctPath = Json.SctPath,
                 ConfigPath = Json.ConfigPath,
                 CredentialsPath = Path,
+                CustomJsonPath = Json.CustomJsonPath,
             };
 
             string line1Edited = JsonConvert.SerializeObject(newPaths);
