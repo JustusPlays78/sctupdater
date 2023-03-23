@@ -32,8 +32,40 @@ namespace SCTUpdater
                 CreateConfigJson();
                 ConfigcsPath = ImportPaths();
             }
+            
 
             ConfigcsPath = ImportPaths();
+            Customsettings();
+        }
+
+        private static void Customsettings()
+        {
+            Paths costumpath = ImportPaths();
+            if (costumpath.CustomJsonPath == null)
+            {
+                costumpath.CustomJsonPath = Directory.GetCurrentDirectory() + "\\customsettings.json";
+            }
+            if (File.Exists(costumpath.CustomJsonPath))
+            {
+            }
+            else
+            {
+                CustomJsonVariables defaultvariable = new CustomJsonVariables()
+                {
+                    Setting = new string[,]
+                        {
+                        { "TopSkyCPDLChoppieCode.txt","","asdaasdasd" },//wenn leer dann das ganze File ersetzen TODO
+                        }
+                };
+
+                string JsonResultpath = JsonConvert.SerializeObject(defaultvariable);
+
+                using (var tw = new StreamWriter(costumpath.CustomJsonPath))
+                {
+                    tw.WriteLine(JsonResultpath);
+                    tw.Close();
+                }
+            }
         }
 
         /*Cheks if Config.json exists*/
@@ -61,6 +93,7 @@ namespace SCTUpdater
                  SctPath = null,
                  CredentialsPath = Directory.GetCurrentDirectory() + "\\credentials.json",
                  CustomJsonPath = null,
+                 CustonJsonPathwjson = null,
              };
 
             string JsonResultpath = JsonConvert.SerializeObject(ConfigcsPath);
@@ -106,6 +139,7 @@ namespace SCTUpdater
                 ConfigPath = Json.ConfigPath,
                 CredentialsPath = Json.CredentialsPath,
                 CustomJsonPath = Json.CustomJsonPath,
+                CustonJsonPathwjson = Json.CustonJsonPathwjson,
             };
 
             string line1Edited = JsonConvert.SerializeObject(newPaths);
@@ -133,7 +167,8 @@ namespace SCTUpdater
                 SctPath = Json.SctPath,
                 ConfigPath = Json.ConfigPath,
                 CredentialsPath = Json.CredentialsPath,
-                CustomJsonPath = Path,
+                CustomJsonPath = Path + "\\customsettings.json",
+                CustonJsonPathwjson = Path,
             };
 
             string line1Edited = JsonConvert.SerializeObject(newPaths);
@@ -160,6 +195,7 @@ namespace SCTUpdater
                 ConfigPath = Json.ConfigPath,
                 CredentialsPath = Path,
                 CustomJsonPath = Json.CustomJsonPath,
+                CustonJsonPathwjson = Json.CustonJsonPathwjson,
             };
 
             string line1Edited = JsonConvert.SerializeObject(newPaths);
