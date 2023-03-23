@@ -35,8 +35,9 @@ namespace SCTUpdater
             DebugBox.Visibility = Visibility.Visible;
 
             PathTextBox.Text = newPath.SctPath;
-            
-            
+            JsonPathTextBox.Text = newPath.CustomJsonPath;
+
+
         }
 
         private void MouseDragAndDrop(object sender, MouseButtonEventArgs e)
@@ -76,6 +77,18 @@ namespace SCTUpdater
                 ProcessStartButton.IsEnabled = true;
             }
         }
+        private void JsonFileSelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog fileddialog = new FolderBrowserDialog();
+            if (fileddialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                PathTextBox.Text = fileddialog.SelectedPath;
+                Config.SetJsonPath(fileddialog.SelectedPath);
+            }
+        }
+
+        
+
         private void OnContentRendered(object sender, EventArgs e)
         {
             Main = this;
@@ -125,8 +138,9 @@ namespace SCTUpdater
             bool? CopyPassword = PasswordCheckBox.IsChecked;
             bool? CopyCpdlc = CpdlcCheckBox.IsChecked;
             bool? CopyHdgDrawTool = HdgDrawToolCheckBox.IsChecked;
+            bool? InsertCustomJSon = extrajsonCheckBox.IsChecked;
 
-            StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc, CopyHdgDrawTool);
+            StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc, CopyHdgDrawTool, InsertCustomJSon);
             MessageBox.Show("Done");
         }
     }

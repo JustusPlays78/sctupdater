@@ -11,6 +11,8 @@ namespace SCTUpdater
         public string SctPath { get; set; }
         public string ConfigPath { get; set; }
         public string CredentialsPath { get; set; }
+        public string CustomJsonPath { get; set; }
+        public string CustonJsonPathwjson { get; set; }
     }
 
     public class Variable
@@ -25,5 +27,10 @@ namespace SCTUpdater
         public long Cid { get; set; }
         public string Password { get; set; }
         public string Cpdlc { get; set; }
+    }
+
+    public class CustomJsonVariables
+    {
+        public string[,] Setting { get; set; }
     }
 }

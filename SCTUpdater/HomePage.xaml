@@ -198,6 +198,54 @@
                         </Button.Template>
                     </Button>
                 </StackPanel>
+                
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="2,10,0,0"
+                        FontSize="15"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Text="JSON File" />
+                    <TextBox
+                        x:Name="JsonPathTextBox"
+                        Width="250"
+                        Margin="10,10,0,0"
+                        Padding="0,5,0,5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="#233244"
+                        BorderThickness="0"
+                        Foreground="White"
+                        Text="">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Button
+                        x:Name="JsonFileSelectButton"
+                        Margin="10,10,0,0"
+                        Background="#233244"
+                        Click="JsonFileSelectButton_Click"
+                        Content="Select"
+                        FontSize="15"
+                        Foreground="White">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+                                    Width="120"
+                                    Height="25"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="10">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
 
                 <StackPanel Margin="0,10,0,0" Background="#1C2836">
                     <StackPanel Orientation="Horizontal">
@@ -236,9 +284,10 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox
+                            x:Name="extrajsonCheckBox"
                             Width="200"
                             Margin="10,10,0,0"
-                            Content="extra"
+                            Content="JSON Insert"
                             FontFamily="Myriad Pro"
                             FontSize="15"
                             Foreground="White" />

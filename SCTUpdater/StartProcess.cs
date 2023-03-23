@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,17 +27,17 @@ namespace SCTUpdater
         private static List<string> Profiles = new List<string>();
 
         //Langen 0, Bremen 1, München 2
-        public static void Start(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool)
+        public static void Start(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool, bool? insertcustomjson)
         {
             ProcessCredentials = CredentialProcess.ImportCredentialsJson();
             ProcessPaths = Config.ImportPaths();
 
 
 
-            mainTainer(namecid, password, cpdlc, hdgdrawtool);
+            mainTainer(namecid, password, cpdlc, hdgdrawtool, insertcustomjson);
         }
 
-        private static void mainTainer(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool)
+        private static void mainTainer(bool? namecid, bool? password, bool? cpdlc, bool? hdgdrawtool, bool? insertcustomjson)
         {
             string builder = generateStuff(namecid, password, cpdlc, hdgdrawtool,ProcessCredentials);
             GetProfileFiles();
@@ -47,8 +48,14 @@ namespace SCTUpdater
                     getProfileContent(file);
                     insertStuff(file, builder, profileContentwithout);
                 }
+            }
+
+            if (insertcustomjson == true)
+            {
+                string builder2 = CustomJson.Maintainer();
 
             }
+
         }
 
         private static string getProfileContent(string path)
@@ -62,21 +69,41 @@ namespace SCTUpdater
         private static string generateStuff( bool? ifnamecid, bool? ifpassword, bool? ifcpdlc, bool? ifhdgdrawtool, Credentials ProcessCredentials)
         {
             StringBuilder builder = new StringBuilder();
+            string connecttype = "LastSession\tconnecttype\t0";
+            string callsign = "LastSession\tcallsign\tXX_OBS";
+            builder.AppendLine(connecttype);
+            builder.AppendLine(callsign);
             if (ifnamecid == true)
             { 
-                string realname = "LastSession realname " + ProcessCredentials.Name;
-                string certificate = "LastSession certificate " + ProcessCredentials.Cid;
+                string realname = "LastSession\trealname\t" + ProcessCredentials.Name;
+                string certificate = "LastSession\tcertificate\t" + ProcessCredentials.Cid;
                 builder.AppendLine(realname);
                 builder.AppendLine(certificate);
             }
 
             if (ifpassword == true)
             {
-                string password = "LastSession password " + ProcessCredentials.Password;
+                string password = "LastSession\tpassword\t" + ProcessCredentials.Password;
                 builder.AppendLine(password);
             }
 
-            if(ifcpdlc == true)
+            string facility = "LastSession\tfacility\t0";
+            string rating = "LastSession\trating\t0";
+            string server = "LastSession\tserver\tCANADA";
+            string tovatsim = "LastSession\ttovatsim\t1";
+            string range = "LastSession\trange\t100";
+            string proxy = "LastSession\tproxyserver\tlocalhost";
+            string simdatapublish = "LastSession\tsimdatapublish\t0";
+            builder.AppendLine(facility);
+            builder.AppendLine(rating);
+            builder.AppendLine(server);
+            builder.AppendLine(tovatsim);
+            builder.AppendLine(range);
+            builder.AppendLine(proxy);
+            builder.AppendLine(simdatapublish);
+
+
+            if (ifcpdlc == true)
             {
                 EditHoppieCode();          
             }
@@ -90,7 +117,7 @@ namespace SCTUpdater
 
         private static void insertStuff(string path, string builder, string profileContentwithout)
         {
-            string insert = profileContentwithout + "\n" + builder;
+            string insert = profileContentwithout + builder;
 
             File.WriteAllText(path, insert);
         }

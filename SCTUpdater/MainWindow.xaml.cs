@@ -101,7 +101,7 @@ namespace SCTUpdater
             bool? CopyCpdlc = EdggPasswordCpdlc.IsChecked;
             bool? CopyHdgDrawTool = EdggHdgDrawToolCheckBox.IsChecked;
 
-            StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc, CopyHdgDrawTool);
+            //StartProcess.Start(CopyCid, CopyPassword, CopyCpdlc, CopyHdgDrawTool, );
             MessageBox.Show("Done");
         }
     }
