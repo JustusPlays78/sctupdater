@@ -36,8 +36,6 @@ namespace SCTUpdater
 
             PathTextBox.Text = newPath.SctPath;
             JsonPathTextBox.Text = newPath.CustomJsonPath;
-
-
         }
 
         private void MouseDragAndDrop(object sender, MouseButtonEventArgs e)
@@ -122,11 +120,10 @@ namespace SCTUpdater
                 //Config.SetCredentialsPath();
 
                 MessageBox.Show("Done");
+                return;
             }
-            else
-            {
-                MessageBox.Show("Invalid CID Entered");
-            }
+            
+            MessageBox.Show("Invalid CID Entered");
 
             //var credentials = new Credentials();
 

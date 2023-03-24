@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\obj\Release\net5.0-windows\
 SCTUpdater
 none
 false
 TRACE;RELEASE;NET;NET5_0;NETCOREAPP
-C:\Users\Julian\Documents\GitHub\sctupdater\SCTUpdater\App.xaml
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\App.xaml
 2-11023367
 1668176366
 111805955714
-2031728012223
+203182305323
 HomePage.xaml;MainWindow.xaml;
 
-False
+True
 

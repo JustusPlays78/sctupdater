@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
-using Newtonsoft.Json;
 using SCTUpdater;
 using static SCTUpdater.Strings;
+using System.Text.Json;
 
 namespace SCTUpdater
 {
@@ -44,42 +44,31 @@ namespace SCTUpdater
             if (costumpath.CustomJsonPath == null)
             {
                 costumpath.CustomJsonPath = Directory.GetCurrentDirectory() + "\\customsettings.json";
+                return;
             }
             if (File.Exists(costumpath.CustomJsonPath))
             {
+                //TODO
+                return;
             }
-            else
+
+            CustomJsonVariables defaultvariable = new CustomJsonVariables()
             {
-                CustomJsonVariables defaultvariable = new CustomJsonVariables()
-                {
-                    Setting = new string[,]
-                        {
-                        { "TopSkyCPDLChoppieCode.txt","","asdaasdasd" },//wenn leer dann das ganze File ersetzen TODO
-                        }
-                };
+                Settings = new List<Setting>()
+            };
 
-                string JsonResultpath = JsonConvert.SerializeObject(defaultvariable);
+            string JsonResultpath = JsonSerializer.Serialize(defaultvariable);
 
-                using (var tw = new StreamWriter(costumpath.CustomJsonPath))
-                {
-                    tw.WriteLine(JsonResultpath);
-                    tw.Close();
-                }
+            using (var tw = new StreamWriter(costumpath.CustomJsonPath))
+            {
+                tw.WriteLine(JsonResultpath);
+                tw.Close();
             }
         }
 
         /*Cheks if Config.json exists*/
-        private static bool CheckConfigJson()
-        {
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\config.json"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        private static bool CheckConfigJson() => File.Exists(Directory.GetCurrentDirectory() + @"\config.json");
+        
 
         /*Sets the path to currentdirectory
          Therafter opens method to set defaultconfigvariables(later via download)
@@ -96,16 +85,13 @@ namespace SCTUpdater
                  CustonJsonPathwjson = null,
              };
 
-            string JsonResultpath = JsonConvert.SerializeObject(ConfigcsPath);
+            string JsonResultpath = JsonSerializer.Serialize(ConfigcsPath);
 
-            using (var tw = new StreamWriter(ConfigPathcreate))
-            {
-                tw.WriteLine(JsonResultpath);
-                tw.Close();
-            }
+            using var tw = new StreamWriter(ConfigPathcreate);
+            tw.WriteLine(JsonResultpath);
+            tw.Close();
 
             //File.WriteAllText(Directory.GetCurrentDirectory() + @"\config.json", JsonResult);
-
         }
 
 
@@ -116,7 +102,7 @@ namespace SCTUpdater
             reader.Close();
 
 
-            Paths Mainpath = JsonConvert.DeserializeObject<Paths>(JsonOutputPath);
+            Paths Mainpath = JsonSerializer.Deserialize<Paths>(JsonOutputPath);
 
             return Mainpath;
         }
@@ -131,7 +117,7 @@ namespace SCTUpdater
             string Line1 = streamReader.ReadLine();
             streamReader.Close();
 
-            Paths Json = JsonConvert.DeserializeObject<Paths>(Line1);
+            Paths Json = JsonSerializer.Deserialize<Paths>(Line1);
 
             Paths newPaths = new Paths
             {
@@ -142,7 +128,7 @@ namespace SCTUpdater
                 CustonJsonPathwjson = Json.CustonJsonPathwjson,
             };
 
-            string line1Edited = JsonConvert.SerializeObject(newPaths);
+            string line1Edited = JsonSerializer.Serialize(newPaths);
 
 
             StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
@@ -160,7 +146,7 @@ namespace SCTUpdater
             string Line1 = streamReader.ReadLine();
             streamReader.Close();
 
-            Paths Json = JsonConvert.DeserializeObject<Paths>(Line1);
+            Paths Json = JsonSerializer.Deserialize<Paths>(Line1);
 
             Paths newPaths = new Paths
             {
@@ -171,7 +157,7 @@ namespace SCTUpdater
                 CustonJsonPathwjson = Path,
             };
 
-            string line1Edited = JsonConvert.SerializeObject(newPaths);
+            string line1Edited = JsonSerializer.Serialize(newPaths);
 
 
             StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
@@ -186,7 +172,7 @@ namespace SCTUpdater
 
             string Line1 = streamReader.ReadLine();
 
-            Paths Json = JsonConvert.DeserializeObject<Paths>(Line1);
+            Paths Json = JsonSerializer.Deserialize<Paths>(Line1);
 
 
             Paths newPaths = new Paths
@@ -198,7 +184,7 @@ namespace SCTUpdater
                 CustonJsonPathwjson = Json.CustonJsonPathwjson,
             };
 
-            string line1Edited = JsonConvert.SerializeObject(newPaths);
+            string line1Edited = JsonSerializer.Serialize(newPaths);
 
             StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
             writer.WriteLine(line1Edited);
@@ -210,15 +196,16 @@ namespace SCTUpdater
             List<string> topskyFolders = new List<string>();
             var AllPluginDlls = Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories);
 
-            foreach (var plugin in AllPluginDlls)
-            {
-                var pluginName = System.IO.Path.GetFileNameWithoutExtension(plugin);
-                if (pluginName == "TopSky")
-                {
-                    string topskyDirectory = Path.GetDirectoryName(plugin);
-                    topskyFolders.Add(topskyDirectory);
-                }
-            }
+            topskyFolders = AllPluginDlls.Where(x => Path.GetFileNameWithoutExtension(x) == "TopSky").Select(y => Path.GetDirectoryName(y)).ToList();
+            //foreach (var plugin in AllPluginDlls)
+            //{
+            //    var pluginName = Path.GetFileNameWithoutExtension(plugin);
+            //    if (pluginName == "TopSky")
+            //    {
+            //        string topskyDirectory = Path.GetDirectoryName(plugin);
+            //        topskyFolders.Add(topskyDirectory);
+            //    }
+            //}
 
             return topskyFolders;
         }

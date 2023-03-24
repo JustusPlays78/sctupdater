@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Shapes;
-using Newtonsoft.Json;
 using SCTUpdater;
 using static SCTUpdater.Variable;
 using Path = System.IO.Path;
@@ -52,8 +51,7 @@ namespace SCTUpdater
 
             if (insertcustomjson == true)
             {
-                string builder2 = CustomJson.Maintainer();
-
+                CustomJson.Maintainer();
             }
 
         }
@@ -141,24 +139,18 @@ namespace SCTUpdater
         private static void GetProfileFiles()
         {
             var files = Directory.GetFiles(ProcessPaths.SctPath, "*.prf");
-            foreach (var file in files)
-            {
-                Profiles.Add(file);
-            }
 
+            files.ToList().ForEach(x => Profiles.Add(x));
         }
 
         private static void EditHoppieCode()
         {
-            var files = Directory.GetFiles(ProcessPaths.SctPath, "*.txt");
-            foreach (var file in files)
-            {
-                string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
-                if(fileName == "TopSkyCPDLChoppieCode")
-                {
-                    File.WriteAllText(file, ProcessCredentials.Cpdlc);
-                }
-            }
+            var files = Directory.GetFiles(ProcessPaths.SctPath, "*.txt", SearchOption.AllDirectories).ToList();
+
+            var hoppiePaths = files.Where(x => Path.GetFileNameWithoutExtension(x) == "TopSkyCPDLChoppieCode").ToList();
+
+            var count = files.Count;
+            hoppiePaths.ForEach(x => File.WriteAllText(x, ProcessCredentials.Cpdlc));
         }
 
         private static void EditHdgDrawTool()
@@ -166,7 +158,7 @@ namespace SCTUpdater
             var files = Directory.GetFiles(ProcessPaths.SctPath, "*.txt");
             foreach (var file in files)
             {
-                string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
+                string fileName = Path.GetFileNameWithoutExtension(file);
                 if (fileName == "EDGG_Tags")
                 {
                     StreamReader reader = new StreamReader(file);

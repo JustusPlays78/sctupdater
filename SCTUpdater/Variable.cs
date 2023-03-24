@@ -8,11 +8,11 @@ namespace SCTUpdater
 {
     public class Paths
     {
-        public string SctPath { get; set; }
-        public string ConfigPath { get; set; }
-        public string CredentialsPath { get; set; }
-        public string CustomJsonPath { get; set; }
-        public string CustonJsonPathwjson { get; set; }
+        public string? SctPath { get; set; }
+        public string? ConfigPath { get; set; }
+        public string? CredentialsPath { get; set; }
+        public string? CustomJsonPath { get; set; }
+        public string? CustonJsonPathwjson { get; set; }
     }
 
     public class Variable
@@ -31,6 +31,14 @@ namespace SCTUpdater
 
     public class CustomJsonVariables
     {
-        public string[,] Setting { get; set; }
+        public List<Setting> Settings { get; set; }
+    }
+
+    public class Setting
+    {
+        public string FileName { get; set;}
+        public string OldContent { get; set;}
+        public string NewContent { get; set;}
+
     }
 }

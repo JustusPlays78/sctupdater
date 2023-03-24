@@ -1,0 +1,6 @@
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\bin\Release\net7.0-windows\publish\SCTUpdater.exe
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\bin\Release\net7.0-windows\publish\SCTUpdater.dll
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\bin\Release\net7.0-windows\publish\SCTUpdater.deps.json
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\bin\Release\net7.0-windows\publish\SCTUpdater.runtimeconfig.json
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\bin\Release\net7.0-windows\publish\SCTUpdater.pdb
+C:\Users\timiu\Documents\GitHub\sctupdater\SCTUpdater\bin\Release\net7.0-windows\publish\Newtonsoft.Json.dll
