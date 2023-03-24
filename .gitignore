@@ -4,3 +4,6 @@
 *.vsidx
 .vs/SCTUpdater/FileContentIndex/033180a6-9c4c-481a-8c30-58de4ddee713.vsidx
 SCTUpdater/obj/Debug/net5.0-windows/ref/SCTUpdater.dll
+SCTUpdater/obj/Release/net5.0-windows/win-x64/SCTUpdater_fi0ycssv_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+SCTUpdater/obj/Release/net5.0-windows/win-x64/SCTUpdater_MarkupCompile.cache
+SCTUpdater/Properties/PublishProfiles/FolderProfile.pubxml.user
