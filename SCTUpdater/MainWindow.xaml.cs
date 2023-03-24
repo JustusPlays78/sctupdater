@@ -82,11 +82,10 @@ namespace SCTUpdater
                 //Config.SetCredentialsPath();
 
                 MessageBox.Show("Done");
+                return;
             }
-            else
-            {
-                MessageBox.Show("Invalid CID Entered");
-            }
+            
+            MessageBox.Show("Invalid CID Entered");
         }
 
         private void UIElement_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

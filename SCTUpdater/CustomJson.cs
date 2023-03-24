@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,82 +13,59 @@ namespace SCTUpdater
     {
         public static Paths CustomJsonProcessPaths;
 
-        public static string Maintainer()
+        public static void Maintainer()
         {
             CustomJsonProcessPaths = Config.ImportPaths();
 
             List<bool> JsonDone = new List<bool>();
-            CustomJsonVariables customJsonNew = getJson();
-            for (int i = 0; i < customJsonNew.Setting.GetLength(0); i++)
-            {
-                JsonDone.Add(CustomInsertFromJson(i, customJsonNew, CustomJsonProcessPaths));
-            }
+            CustomJsonVariables customJsonNew = getJson()!;
 
-            return null;
+            customJsonNew.Settings.ForEach(
+                x => JsonDone.Add(CustomInsertFromJson(x, CustomJsonProcessPaths))
+            );
         }
 
         private static CustomJsonVariables? getJson()
         {
             CustomJsonProcessPaths = Config.ImportPaths();
-            StreamReader reader = new StreamReader(CustomJsonProcessPaths.CustomJsonPath);
+            StreamReader reader = new StreamReader(
+                CustomJsonProcessPaths.CustomJsonPath ?? throw new Exception()
+            );
             string JsonOutput = reader.ReadToEnd();
-            if (JsonConvert.DeserializeObject<CustomJsonVariables>(JsonOutput) != null)
+
+            var deserializeJson = JsonSerializer.Deserialize<CustomJsonVariables>(JsonOutput);
+            if (deserializeJson != null)
             {
-                CustomJsonVariables? CustomJsonContent = JsonConvert.DeserializeObject<CustomJsonVariables>(
-                    JsonOutput
-                );
-                return CustomJsonContent;
+                return deserializeJson ?? throw new Exception();
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
-        private static bool CustomInsertFromJson(int i, CustomJsonVariables custonJsonNew, Paths Path)
+        private static bool CustomInsertFromJson(Setting setting, Paths path)
         {
-            
-            string customJsonFilename = custonJsonNew.Setting.GetValue(i, 0).ToString();
-            string customJsonOldContent = custonJsonNew.Setting.GetValue(i, 1).ToString();
-            string customJsonNewContent = custonJsonNew.Setting.GetValue(i, 2).ToString();
-            string JsonPath = Path.CustonJsonPathwjson + "\\" + customJsonFilename;
+            string customJsonFilename = setting.FileName;
+            string customJsonOldContent = setting.OldContent;
+            string customJsonNewContent = setting.NewContent;
+            string JsonPath = path.CustonJsonPathwjson + "\\" + customJsonFilename;
             string newcontent;
 
-            if (Checker(JsonPath) != true)
+            if (!File.Exists(JsonPath))
             {
                 return false;
             }
-
 
             StreamReader reader = new StreamReader(JsonPath);
             string oldcontent = reader.ReadToEnd();
             reader.Close();
-            if (customJsonOldContent != null)
-            {
-                oldcontent.Contains(customJsonOldContent);
-                newcontent = oldcontent.Replace(customJsonOldContent, customJsonNewContent);
-            }
-            else
-            {
-                newcontent = customJsonNewContent;
-            }
-            
+
+            newcontent =
+                customJsonOldContent != null
+                    ? oldcontent.Replace(customJsonOldContent, customJsonNewContent)
+                    : customJsonNewContent;
+
             File.WriteAllText(JsonPath, newcontent);
             return true;
-
-        }
-
-        private static bool Checker(string file)
-        {
-            if (File.Exists(file))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
         }
     }
 }

@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
-using Newtonsoft.Json;
 
 
 namespace SCTUpdater
@@ -26,27 +26,18 @@ namespace SCTUpdater
             CredentialsProcessPaths = Config.ImportPaths();
             if (CheckCredentialsJson())
             {
-                File.Delete(CredentialsProcessPaths.CredentialsPath);
-                CreateCredentialsJson(name, cid, password, CDPLC);
+                File.Delete(CredentialsProcessPaths.CredentialsPath!);
             }
-            else
-            {
-                CreateCredentialsJson(name, cid, password, CDPLC);
-            }
+
+            CreateCredentialsJson(name, cid, password, CDPLC);
         }
 
         /*Checks if the File exists*/
         private static bool CheckCredentialsJson()
         {
             CredentialsProcessPaths = Config.ImportPaths();
-            if (File.Exists(CredentialsProcessPaths.CredentialsPath))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+
+            return File.Exists(CredentialsProcessPaths.CredentialsPath);
         }
 
         private static void CreateCredentialsJson(
@@ -63,13 +54,11 @@ namespace SCTUpdater
             saveCredentials.Cpdlc = cpdlc;
             saveCredentials.Cid = cid;
 
-            string Json = JsonConvert.SerializeObject(saveCredentials);
+            string Json = JsonSerializer.Serialize(saveCredentials);
 
-            using (StreamWriter streamWriter = new StreamWriter(CredentialsProcessPaths.CredentialsPath))
-            {
-                streamWriter.Write(Json);
-                streamWriter.Close();
-            }
+            using StreamWriter streamWriter = new StreamWriter(CredentialsProcessPaths.CredentialsPath);
+            streamWriter.Write(Json);
+            streamWriter.Close();
         }
 
         public static Credentials? ImportCredentialsJson()
@@ -77,17 +66,15 @@ namespace SCTUpdater
             CredentialsProcessPaths = Config.ImportPaths();
             StreamReader reader = new StreamReader(CredentialsProcessPaths.CredentialsPath);
             string JsonOutput = reader.ReadToEnd();
-            if (JsonConvert.DeserializeObject<Credentials>(JsonOutput) != null)
+            if (JsonSerializer.Deserialize<Credentials>(JsonOutput) != null)
             {
-                Credentials? MainCredentials = JsonConvert.DeserializeObject<Credentials>(
+                Credentials? MainCredentials = JsonSerializer.Deserialize<Credentials>(
                     JsonOutput
                 );
                 return MainCredentials;
             }
-            else
-            {
-                return null;
-            }
+           
+            return null;
         }
 
         public static void EnterCredentials()
