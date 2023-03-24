@@ -63,7 +63,7 @@ namespace SCTUpdater
             StreamReader reader = new StreamReader(JsonPath);
             string oldcontent = reader.ReadToEnd();
             reader.Close();
-            if (customJsonOldContent == null)
+            if (customJsonOldContent != null)
             {
                 oldcontent.Contains(customJsonOldContent);
                 newcontent = oldcontent.Replace(customJsonOldContent, customJsonNewContent);
@@ -72,6 +72,7 @@ namespace SCTUpdater
             {
                 newcontent = customJsonNewContent;
             }
+            
             File.WriteAllText(JsonPath, newcontent);
             return true;
 
