@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 namespace SCTUpdater
 {
     public class SCTPath
@@ -29,18 +30,14 @@ namespace SCTUpdater
             {
                 return true;
             }
-            else
-            {
-                CreateConfig();
-                return false;
-            }
+            
+            CreateConfig();
+            return false;
         }
 
         public static void CreateConfig()
         {
             string Path = @"config.json";
-
-
         }
 
         public static void SavePath(string paths)
@@ -48,7 +45,7 @@ namespace SCTUpdater
             StreamReader reader = new StreamReader(SCTPath.Path + @"\config.json");
             string json = reader.ReadToEnd();
             reader.Close();
-            SCTPath pathdialog =JsonSerializer.Deserialize<SCTPath>(json);
+            SCTPath pathdialog =JsonSerializer.Deserialize<SCTPath>(json) ?? throw new Exception("JSON nix gut");
             string JSONresult = JsonSerializer.Serialize(paths);
             File.WriteAllText(@"config.json", JSONresult);
         }

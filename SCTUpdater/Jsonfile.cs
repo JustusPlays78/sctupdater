@@ -30,7 +30,8 @@ namespace SCTUpdater
                 CPDLC = CPDLC,
                 CID = CID
             };
-            string JSONresult = JsonSerializer.Serialize(cred);
+
+            string JSONresult = JsonSerializer.Serialize(cred, new JsonSerializerOptions { WriteIndented = true});
             File.WriteAllText("config.json", JSONresult);
         }
 
@@ -40,7 +41,6 @@ namespace SCTUpdater
             Credential? creds = JsonSerializer.Deserialize<Credential>(text);
 
             return creds;
-            
         }
     }
 }

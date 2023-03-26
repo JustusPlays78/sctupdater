@@ -43,8 +43,8 @@ namespace SCTUpdater
         private static void CreateCredentialsJson(
             string name,
             long cid,
-            string password,
-            string cpdlc
+            string? password,
+            string? cpdlc
         )
         {
             Credentials saveCredentials = new();

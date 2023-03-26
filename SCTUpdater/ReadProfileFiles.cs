@@ -7,37 +7,51 @@ using System.Threading.Tasks;
 
 namespace SCTUpdater
 {
-    public class   Profile
+    public class Profile
     {
         public string Name { get; init; }
         public string Path { get; init; }
     }
+
     internal class ReadProfileFiles
     {
         public static List<Profile> GetProfiles()
         {
-            List<Profile> ReturnList = new List<Profile>();
+            List<Profile> returnList = new List<Profile>();
 
-            var ProfileFiles = Directory.GetFiles(SCTPath.Path, "*.prf");
+            var profileFiles = Directory.GetFiles(SCTPath.Path, "*.prf").ToList();
 
-            if (ProfileFiles.Length > 0)
+            if (profileFiles.Count == 0)
             {
-                foreach (var File in ProfileFiles)
-                {
-                    string FileName = Path.GetFileNameWithoutExtension(File);
-                    string FilePath = Path.GetFullPath(File);
-
-                    Profile Profile = new Profile
-                    {
-                        Name = FileName,
-                        Path = FilePath,
-                    };
-
-                    ReturnList.Add(Profile);
-                }
+                return Enumerable.Empty<Profile>().ToList();
             }
 
-            return ReturnList;
+            profileFiles.ForEach(
+                x =>
+                    returnList.Add(
+                        new Profile()
+                        {
+                            Name = Path.GetFileNameWithoutExtension(x),
+                            Path = Path.GetFullPath(x)
+                        }
+                    )
+            );
+
+            //foreach (var file in profileFiles)
+            //{
+            //    string fileName = Path.GetFileNameWithoutExtension(file);
+            //    string filePath = Path.GetFullPath(file);
+
+            //    Profile Profile = new Profile
+            //    {
+            //        Name = fileName,
+            //        Path = filePath,
+            //    };
+
+            //    returnList.Add(Profile);
+            //}
+
+            return returnList;
         }
     }
 }

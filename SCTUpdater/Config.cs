@@ -57,7 +57,7 @@ namespace SCTUpdater
                 Settings = new List<Setting>()
             };
 
-            string JsonResultpath = JsonSerializer.Serialize(defaultvariable);
+            string JsonResultpath = JsonSerializer.Serialize(defaultvariable, new JsonSerializerOptions { WriteIndented = true });
 
             using (var tw = new StreamWriter(costumpath.CustomJsonPath))
             {
@@ -85,7 +85,7 @@ namespace SCTUpdater
                  CustonJsonPathwjson = null,
              };
 
-            string JsonResultpath = JsonSerializer.Serialize(ConfigcsPath);
+            string JsonResultpath = JsonSerializer.Serialize(ConfigcsPath, new JsonSerializerOptions { WriteIndented = true });
 
             using var tw = new StreamWriter(ConfigPathcreate);
             tw.WriteLine(JsonResultpath);
@@ -128,7 +128,7 @@ namespace SCTUpdater
                 CustonJsonPathwjson = Json.CustonJsonPathwjson,
             };
 
-            string line1Edited = JsonSerializer.Serialize(newPaths);
+            string line1Edited = JsonSerializer.Serialize(newPaths, new JsonSerializerOptions { WriteIndented = true});
 
 
             StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
@@ -157,7 +157,7 @@ namespace SCTUpdater
                 CustonJsonPathwjson = Path,
             };
 
-            string line1Edited = JsonSerializer.Serialize(newPaths);
+            string line1Edited = JsonSerializer.Serialize(newPaths, new JsonSerializerOptions { WriteIndented = true});
 
 
             StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
@@ -168,11 +168,18 @@ namespace SCTUpdater
 
         public static void SetCredentialsPath(string Path)
         {
-            StreamReader streamReader = new StreamReader(ConfigcsPath.ConfigPath);
+            var path = ConfigcsPath.ConfigPath;
 
-            string Line1 = streamReader.ReadLine();
+            if(path == null)
+            {
+                throw new Exception();
+            }
 
-            Paths Json = JsonSerializer.Deserialize<Paths>(Line1);
+            StreamReader streamReader = new StreamReader(path);
+
+            string Line1 = streamReader.ReadLine() ?? throw new Exception();
+
+            Paths Json = JsonSerializer.Deserialize<Paths>(Line1) ?? throw new Exception("Paths nix gut");
 
 
             Paths newPaths = new Paths
@@ -184,7 +191,7 @@ namespace SCTUpdater
                 CustonJsonPathwjson = Json.CustonJsonPathwjson,
             };
 
-            string line1Edited = JsonSerializer.Serialize(newPaths);
+            string line1Edited = JsonSerializer.Serialize(newPaths, new JsonSerializerOptions { WriteIndented = true });
 
             StreamWriter writer = new StreamWriter(ConfigcsPath.ConfigPath);
             writer.WriteLine(line1Edited);
@@ -207,6 +214,11 @@ namespace SCTUpdater
             //    }
             //}
 
+            if(topskyFolders.Count == 0)
+            {
+                return Enumerable.Empty<string>().ToList();
+            }
+
             return topskyFolders;
         }
 
@@ -215,10 +227,8 @@ namespace SCTUpdater
             var textBox = Main.DebugBox;
 
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var folder in topskyFolders)
-            {
-                stringBuilder.AppendLine(folder);
-            }
+
+            topskyFolders.ForEach(x => stringBuilder.AppendLine(x));
 
             textBox.Text = stringBuilder.ToString();
         }

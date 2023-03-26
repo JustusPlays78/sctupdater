@@ -25,8 +25,8 @@ namespace SCTUpdater
     {
         public string Name { get; set; }
         public long Cid { get; set; }
-        public string Password { get; set; }
-        public string Cpdlc { get; set; }
+        public string? Password { get; set; }
+        public string? Cpdlc { get; set; }
     }
 
     public class CustomJsonVariables
