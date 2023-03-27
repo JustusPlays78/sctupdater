@@ -10,3 +10,13 @@ SCTUpdater/Properties/PublishProfiles/FolderProfile.pubxml.user
 .vs/SCTUpdater/DesignTimeBuild/.dtbcache.v2
 .vs/ProjectEvaluation/sctupdater.metadata.v5.1
 .vs/SCTUpdater/DesignTimeBuild/.dtbcache.v2
+SCTUpdater/bin/Debug/net5.0-windows/config.json
+SCTUpdater/bin/Debug/net5.0-windows/credentials.json
+SCTUpdater/bin/Debug/net5.0-windows/customsettings.json
+SCTUpdater/bin/Debug/net5.0-windows/SCTUpdater.dll
+SCTUpdater/bin/Debug/net5.0-windows/SCTUpdater.pdb
+SCTUpdater/obj/Debug/net5.0-windows/App.g.cs
+SCTUpdater/obj/Debug/net5.0-windows/App.g.i.cs
+SCTUpdater/obj/Debug/net5.0-windows/HomePage.baml
+SCTUpdater/obj/Debug/net5.0-windows/HomePage.g.i.cs
+SCTUpdater/obj/SCTUpdater_n43sq1j3_wpftmp.csproj.nuget.g.targets
