@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "4Gqx61pZRZyrVjv7gS0ZeK/W0qVc9RjqHaIaMMd4A2E4t7R+RdVgXc5kymJEMlF1SO5mpFf4BDbl0lA279a0jA==",
+  "dgSpecHash": "ccv2rwFd0IPOfkQ0/HpO9DuEUzwD/4iuRKzKCX8m9adzdFba3HIIHmFHVV4kEOnlRNBDHjFA57ZeD5vIVw6nTA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\timiu\\source\\repos\\SCTUpdater\\SCTUpdater\\SCTUpdater.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Julian\\Documents\\GitHub\\sctupdater\\SCTUpdater\\SCTUpdater.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Julian\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Julian\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Julian\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Julian\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+  ],
   "logs": []
 }
